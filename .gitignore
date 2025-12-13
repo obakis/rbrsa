@@ -1,5 +1,6 @@
 .Rproj.user
-.DS_Store
-.Rhistory
-*/.DS_Store
 data-raw/
+*.numbers
+.DS_Store
+*/.DS_Store
+.Rhistory
