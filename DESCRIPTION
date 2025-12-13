@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 URL: https://github.com/obakis/rbrsa
 BugReports: https://github.com/obakis/rbrsa/issues
 Depends:
-    R (>= 4.0.0)
+    R (>= 4.1.0)
 Imports:
     httr2 (>= 1.0.0),
     jsonlite (>= 1.8.0),

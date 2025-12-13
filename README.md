@@ -1,4 +1,4 @@
-# rbrsa: R Package for Turkish Banking Data
+# rbrsa: An R Package for Turkish Banking Sector Data
 
 An R package for programmatic access to Turkish banking sector data from the Turkish Banking Regulation  and Supervision Agency (BRSA, known as BDDK in Turkish). The package provides  R users with a clean interface to fetch monthly and quarterly banking statistics,  financial reports, and sectoral indicators directly from BRSA's official APIs.
 
