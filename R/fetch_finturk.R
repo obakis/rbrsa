@@ -32,28 +32,6 @@ fetch_finturk1 <- function(year, month, table_no,
   # API Request
   base_url <- "https://www.bddk.org.tr/BultenFinturk/tr/Home/VeriGetir"
   
-  # body_data <- list(
-  #   tabloNo = as.character(table_no),
-  #   donem = sprintf("%d-%d", year, month),
-  #   `tarafList[0]` = as.character(grup_kod),
-  #   `sehirList[0]` = city_name
-  # )
-  # response <- httr::POST(
-  #   base_url, body = body_data, encode = "form",
-  #   httr::add_headers(
-  #     `Content-Type` = "application/x-www-form-urlencoded; charset=UTF-8",
-  #     `X-Requested-With` = "XMLHttpRequest",
-  #     `Referer` = "https://www.bddk.org.tr/BultenFinturk"
-  #   ),
-  #   timeout(30)
-  # )
-  
-  # if (httr::status_code(response) != 200) {
-  #   stop(sprintf("HTTP error %d", httr::status_code(response)))
-  # }
-  # 
-  # parsed <- jsonlite::fromJSON(httr::content(response, "text", encoding = "UTF-8"), 
-  #                              simplifyVector = FALSE)
   req <- httr2::request(base_url) |>
     httr2::req_body_form(
         tabloNo = as.character(table_no),
@@ -85,10 +63,10 @@ fetch_finturk1 <- function(year, month, table_no,
   # create data frame from JSON file
   df <- parse_bddk_json(parsed$Json)
   if (nrow(df) == 0) {
-    warning(sprintf("No data for table %d, %d-%02d", table_no, year, month))
+    warning(sprintf("No data for table %d, %d-%02d, grup_kod %d, plaka  %d", 
+                    table_no, year, month, grup_kod, il))
     return(data.frame())
   }
-  
   # Add metadata
   df$period <- sprintf("%d-%02d", year, month)
   df$grup_kod <- as.character(grup_kod)

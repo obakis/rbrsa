@@ -5,7 +5,7 @@
 #' @param month Month as integer (1-12).
 #' @param table_no Table number to fetch (1-17). No default. 
 #' Use \code{\link{list_tables}} with \code{source = "bddk"} to see available options.
-#' @param grup_kod Group code (10001-10016). Default 10001. 
+#' @param grup_kod Group code (10001-10010). Default 10001. 
 #' Use \code{\link{list_groups}} with \code{source = "bddk"} to see available options.
 #' @param currency Currency code ("TL" or "USD"). Default "TL".
 #' @param lang Language ("en" or "tr"). Default "en".
@@ -20,22 +20,6 @@ fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
                         currency = "TL",  lang = "en") {
   base_url <- sprintf("https://www.bddk.org.tr/BultenAylik/%s/Home/BasitRaporGetir", lang)
 
-  # body_data <- list(
-  #   tabloNo = as.character(table_no),
-  #   yil = as.character(year),
-  #   ay = as.character(month),
-  #   paraBirimi = currency,
-  #   taraf = as.character(grup_kod)
-  # )
-  # response <- httr::POST(base_url, body = body_data, encode = "form", httr::timeout(30))
-  
-  # if (httr::status_code(response) != 200) {
-  #   stop(sprintf("HTTP error %d", httr::status_code(response)))
-  # }
-  # parsed <- jsonlite::fromJSON(
-  #   httr::content(response, "text", encoding = "UTF-8"), 
-  #   simplifyVector = FALSE
-  #   )
   req <- httr2::request(base_url) |>
     httr2::req_body_form(
       tabloNo = as.character(table_no),
@@ -60,7 +44,8 @@ fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
   # create data frame from JSON file
   df <- parse_bddk_json(parsed$Json)
   if (nrow(df) == 0) {
-    warning(sprintf("No data for table %d, %d-%02d", table_no, year, month))
+    warning(sprintf("No data for table %d, %d-%02d, grup_kod %d", 
+                    table_no, year, month, grup_kod))
     return(data.frame())
   }
   

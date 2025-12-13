@@ -22,7 +22,7 @@ fetch_bddk1(
 \item{table_no}{Table number to fetch (1-17). No default.
 Use \code{\link{list_tables}} with \code{source = "bddk"} to see available options.}
 
-\item{grup_kod}{Group code (10001-10016). Default 10001.
+\item{grup_kod}{Group code (10001-10010). Default 10001.
 Use \code{\link{list_groups}} with \code{source = "bddk"} to see available options.}
 
 \item{currency}{Currency code ("TL" or "USD"). Default "TL".}

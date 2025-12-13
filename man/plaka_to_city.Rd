@@ -3,7 +3,7 @@
 \name{plaka_to_city}
 \alias{plaka_to_city}
 \title{Convert plaka (license plate number)  to city code
-Maps Turkish license plate numbers to city codes used in the Finturk API.}
+Maps Turkish license plate numbers to city names used in the Finturk API.}
 \usage{
 plaka_to_city(plaka)
 }
@@ -16,7 +16,7 @@ City code in ALL CAPS as required by API
 }
 \description{
 Convert plaka (license plate number)  to city code
-Maps Turkish license plate numbers to city codes used in the Finturk API.
+Maps Turkish license plate numbers to city names used in the Finturk API.
 }
 \examples{
 plaka_to_city(6)   # "ANKARA"

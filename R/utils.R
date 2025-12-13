@@ -5,7 +5,6 @@
 #' @importFrom stats setNames
 #' @noRd
 parse_bddk_json <- function(parsed_json) {
-  # Identify non-hidden columns
   non_hidden <- which(!sapply(parsed_json$colModels, function(x) isTRUE(x$hidden)))
   if (length(non_hidden) == 0) non_hidden <- seq_along(parsed_json$colModels)
 
@@ -92,7 +91,7 @@ save_data <- function(df, filename = NULL, format = "rds") {
 
 
 #' Convert plaka (license plate number)  to city code
-#' Maps Turkish license plate numbers to city codes used in the Finturk API.
+#' Maps Turkish license plate numbers to city names used in the Finturk API.
 #'
 #' @param plaka license plate number (0 for "HEPSI", 1-81 for cities,
 #' 999 for "YURT DISI")
@@ -122,8 +121,7 @@ list_cities <- function() {
 
   cat("\nAvailable cities for Finturk quarterly data:\n")
   cat("(Use plate number in fetch_finturk functions)\n")
-  cat("  Plate 0 = HEPSI (All Cities)\n")
-  cat("  Plate 999 = YURT DISI (Foreign Countries)\n\n")
+  cat("  Plaka 0 = HEPSI (All Cities)\n")
 
   df = data.frame(
     Plate = cities$plaka,
