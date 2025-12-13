@@ -49,18 +49,21 @@ granular, detailed data, including statistics broken down by province, whereas t
  
 ```r
 library(rbrsa)
-# Explore available tables
-list_tables("bddk")
-list_tables("finturk")
+## Explore available tables
+list_tables("bddk") # list_tables("bddk","tr")
+list_tables("finturk")  # list_tables("finturk", "tr")
+list_groups("bddk")  
+list_groups("bddk","tr")  
+list_groups("finturk")
 
-# Monthly data (Table 15: Ratios)
+## Monthly data (Table 15: Ratios)
 data <- fetch_bddk(2024, 1, 2024, 3, table_no = 15, grup_kod = 10001)
 
-# Quarterly Finturk data
+## Quarterly Finturk data
 q_data <- fetch_finturk(2024, 3, 2024, 9, table_no = 1, grup_kod = 10007)
 
-# Save results
-temp_file <- tempfile(fileext = ".csv")
+## Save results
+temp_file <- tempfile(fileext = ".csv") # filenames is without extension
 save_data(q_data, temp_file, format = "csv")
 ```
 
