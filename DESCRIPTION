@@ -1,5 +1,5 @@
 Package: rbrsa
-Title: Fetch Turkish Banking Data from BRSA (BDDK)
+Title: Fetch Turkish Banking Sector Data from BRSA (BDDK)
 Version: 0.1.0
 Authors@R: 
     person(given = "Ozan",    family = "Bakis",
