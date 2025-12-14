@@ -1,5 +1,7 @@
 # rbrsa: An R Package for Turkish Banking Sector Data
 
+[![Documentation](https://img.shields.io/badge/docs-pkgdown-blue)](https://obakis.github.io/rbrsa/)
+
 An R package for programmatic access to Turkish banking sector data from the Turkish Banking Regulation  and Supervision Agency (BRSA, known as BDDK in Turkish). The package provides  R users with a clean interface to fetch monthly and quarterly banking statistics,  financial reports, and sectoral indicators directly from BRSA's official APIs.
 
 ## Key Features
@@ -37,6 +39,8 @@ pak::pkg_install("obakis/rbrsa")
 
 ## Getting started
 
+**Full package documentation with function references and examples is available at: <https://obakis.github.io/rbrsa/>.**
+
 rbrsa package retrieves tablesfrom two distinct publication portals 
 maintained by the Turkish Banking Regulation and Supervision Agency (BDDK). 
 Both portals are official sources, but they organize the data differently:
@@ -46,9 +50,9 @@ overviews of monthly trends without any geographic coverage.
 The [Finturk Data System](https://www.bddk.org.tr/BultenFinturk/) provides 
 granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.
 
-Note: For the time being only a single grup_kod is allowed. The API allows using multiple
-grup_kod as well to download for more than bank groups. This will be added in future 
-versions.
+Note: Currently, only a single grup_kod can be specified per request. 
+The underlying BDDK API supports multiple codes, and this functionality 
+will be added in a future version.
  
 ```r
 library(rbrsa)
