@@ -56,8 +56,8 @@ pak::pkg_install("obakis/rbrsa")
 
 ## Getting started
 
-**Full package documentation with function references and examples is
-available at**: <https://obakis.github.io/rbrsa/>\*\*
+*Full package documentation with function references is available at*:
+<https://obakis.github.io/rbrsa/>
 
 rbrsa package retrieves tablesfrom two distinct publication portals
 maintained by the Turkish Banking Regulation and Supervision Agency
