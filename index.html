@@ -49,6 +49,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="rbrsa-an-r-package-for-turkish-banking-sector-data">rbrsa: An R Package for Turkish Banking Sector Data<a class="anchor" aria-label="anchor" href="#rbrsa-an-r-package-for-turkish-banking-sector-data"></a>
 </h1></div>
+<p><a href="https://obakis.github.io/rbrsa/"><img src="https://img.shields.io/badge/docs-pkgdown-blue" alt="Documentation"></a></p>
 <p>An R package for programmatic access to Turkish banking sector data from the Turkish Banking Regulation and Supervision Agency (BRSA, known as BDDK in Turkish). The package provides R users with a clean interface to fetch monthly and quarterly banking statistics, financial reports, and sectoral indicators directly from BRSA’s official APIs.</p>
 <div class="section level2">
 <h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
@@ -97,8 +98,9 @@
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
+<p><strong>Full package documentation with function references and examples is available at: <a href="https://obakis.github.io/rbrsa/" class="uri">https://obakis.github.io/rbrsa/</a>.</strong></p>
 <p>rbrsa package retrieves tablesfrom two distinct publication portals maintained by the Turkish Banking Regulation and Supervision Agency (BDDK). Both portals are official sources, but they organize the data differently: The <a href="https://www.bddk.org.tr/bultenaylik" class="external-link">Monthly Bulletin Portal</a> provides high-level, summary reports designed for general consumption and quick overviews of monthly trends without any geographic coverage. The <a href="https://www.bddk.org.tr/BultenFinturk/" class="external-link">Finturk Data System</a> provides granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.</p>
-<p>Note: For the time being only a single grup_kod is allowed. The API allows using multiple grup_kod as well to download for more than bank groups. This will be added in future versions.</p>
+<p>Note: Currently, only a single grup_kod can be specified per request. The underlying BDDK API supports multiple codes, and this functionality will be added in a future version.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/obakis/rbrsa" class="external-link">rbrsa</a></span><span class="op">)</span></span>
 <span><span class="co">## Explore available tables</span></span>
