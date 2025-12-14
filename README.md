@@ -27,7 +27,7 @@ You can install from CRAN
 ```r
 install.packages("rbrsa")
 ```
-The development version can be installedfrom GitHub:
+The development version can be installed from GitHub:
 
 ```r
 #install.packages("pak")
@@ -46,6 +46,9 @@ overviews of monthly trends without any geographic coverage.
 The [Finturk Data System](https://www.bddk.org.tr/BultenFinturk/) provides 
 granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.
 
+Note: For the time being only a single grup_kod is allowed. The API allows using multiple
+grup_kod as well to download for more than bank groups. This will be added in future 
+versions.
  
 ```r
 library(rbrsa)

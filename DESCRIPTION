@@ -8,7 +8,7 @@ Description:
     An R package for automated access to Turkish banking sector data from the Turkish Banking Regulation 
     and Supervision Agency (BRSA, known as BDDK in Turkish). 
 License: MIT + file LICENSE
-URL: https://github.com/obakis/rbrsa
+URL: https://github.com/obakis/rbrsa, https://obakis.github.io/rbrsa
 BugReports: https://github.com/obakis/rbrsa/issues
 Depends:
     R (>= 4.1.0)
