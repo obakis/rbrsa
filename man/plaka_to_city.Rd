@@ -2,21 +2,21 @@
 % Please edit documentation in R/utils.R
 \name{plaka_to_city}
 \alias{plaka_to_city}
-\title{Convert plaka (license plate number)  to city code
-Maps Turkish license plate numbers to city names used in the Finturk API.}
+\title{Convert plaka (license plate number)  to province name
+Maps Turkish license plate numbers to province names used in the Finturk API.}
 \usage{
 plaka_to_city(plaka)
 }
 \arguments{
-\item{plaka}{license plate number (0 for "HEPSI", 1-81 for cities,
+\item{plaka}{license plate number (0 for "HEPSI", 1-81 for provinces,
 999 for "YURT DISI")}
 }
 \value{
-City code in ALL CAPS as required by API
+province name in ALL CAPS as required by API
 }
 \description{
-Convert plaka (license plate number)  to city code
-Maps Turkish license plate numbers to city names used in the Finturk API.
+Convert plaka (license plate number)  to province name
+Maps Turkish license plate numbers to province names used in the Finturk API.
 }
 \examples{
 plaka_to_city(6)   # "ANKARA"

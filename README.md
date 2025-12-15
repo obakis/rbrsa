@@ -14,7 +14,23 @@ An R package for programmatic access to Turkish banking sector data from the Tur
 - Returns base R data frames ready for analysis
 
 ## Design Philosophy
-Unlike configuration-heavy approaches, such as [bddkR](https://github.com/ozancanozdemir/bddkR) (which is a based on  [bddkdata](https://github.com/urazakgul/bddkdata), a Python package), rbrsa uses a programmatic design that dynamically extracts column structures from API responses while maintaining a stable user interface. This approach reduces maintenance burden and adapts to BRSA API changes.
+
+**Lightweight and Authentic:** Other packages providing access to BDDK data 
+(like `bddkR`) also fetch data programmatically, but they add 
+a **heavy translation layer**—maintaining manual configuration files to map 
+Turkish column names and categorical values to English. 
+This provides user convenience at a high maintenance cost.
+
+`rbrsa` takes a different path. It interacts directly with the API and uses the data it returns with minimal alteration:
+*   For the **Monthly Bulletin**, it uses the **official English column names and labels** provided 
+by the API when `lang = "en"` is set.
+*   For the **Finturk dataset**, where the API provides data only in 
+Turkish, it returns the **authentic Turkish names**.
+
+**This is a deliberate choice.** By avoiding a separate translation system, 
+`rbrsa` eliminates a major maintenance burden, instantly adapts to any API changes, 
+and guarantees the data you see is exactly what the official source provides.
+
 
 ## Related Packages
 
@@ -42,7 +58,7 @@ pak::pkg_install("obakis/rbrsa")
 *Full package documentation with function references is available at*:
 <https://obakis.github.io/rbrsa/>
 
-rbrsa package retrieves tablesfrom two distinct publication portals 
+The `rbrsa` package retrieves tables from two distinct publication portals 
 maintained by the Turkish Banking Regulation and Supervision Agency (BDDK). 
 Both portals are official sources, but they organize the data differently:
 The [Monthly Bulletin Portal](https://www.bddk.org.tr/bultenaylik) provides 
@@ -51,8 +67,8 @@ overviews of monthly trends without any geographic coverage.
 The [Finturk Data System](https://www.bddk.org.tr/BultenFinturk/) provides 
 granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.
 
-Note: Currently, only a single grup_kod can be specified per request. 
-The underlying BDDK API supports multiple codes, and this functionality 
+Note: Currently, only a single `grup_kod` can be specified per request. 
+The underlying BDDK API supports multiple `grup_kod` codes, and this functionality 
 will be added in a future version.
  
 ```r
@@ -71,7 +87,7 @@ data <- fetch_bddk(2024, 1, 2024, 3, table_no = 15, grup_kod = 10001)
 q_data <- fetch_finturk(2024, 3, 2024, 9, table_no = 1, grup_kod = 10007)
 
 ## Save results
-temp_file <- tempfile(fileext = ".csv") # filenames is without extension
+temp_file <- tempfile() # filename should be without extension
 save_data(q_data, temp_file, format = "csv")
 ```
 

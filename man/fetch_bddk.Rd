@@ -2,8 +2,7 @@
 % Please edit documentation in R/fetch_bddk.R
 \name{fetch_bddk}
 \alias{fetch_bddk}
-\title{Fetch multiple period table from BDDK website
-Fetches BDDK data for a range of months by calling fetch_bddk1 iteratively.}
+\title{Fetch multiple period table from BDDK website}
 \usage{
 fetch_bddk(
   start_year,
@@ -38,10 +37,9 @@ Use \code{\link{list_groups}} with \code{source = "bddk"} to see available optio
 \item{verbose}{Print progress messages. Default TRUE.}
 }
 \value{
-Combined data frame with "fetch_range" attribute.
+Combined data frame with "fetch_info" attribute.
 }
 \description{
-Fetch multiple period table from BDDK website
 Fetches BDDK data for a range of months by calling fetch_bddk1 iteratively.
 }
 \examples{

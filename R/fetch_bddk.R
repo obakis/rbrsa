@@ -1,4 +1,5 @@
 #' Fetch single period table from BDDK website
+#'
 #' Retrieves data for a specific table, month, and grup_kod from the BDDK Monthly Bulletin.
 #'
 #' @param year Year as 4-digit integer (YYYY).
@@ -53,16 +54,12 @@ fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
   df$period <- sprintf("%d-%02d", year, month)
   df$currency <- currency
   df$grup_kod <- as.character(grup_kod)
-  df$table_no <- as.character(table_no)
-  
-  if (!is.null(parsed$Json$caption)) {
-    df$tablo_baslik <- parsed$Json$caption
-  }
-  
+#  df$table_no <- as.character(table_no)
   df
 }
 
 #' Fetch multiple period table from BDDK website
+#'
 #' Fetches BDDK data for a range of months by calling fetch_bddk1 iteratively.
 #'
 #' @param start_year,end_year Starting/ending year (YYYY).
@@ -75,7 +72,7 @@ fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
 #' @param lang Language ("en" or "tr"). Default "en".
 #' @param delay Delay between requests in seconds. Default 0.5.
 #' @param verbose Print progress messages. Default TRUE.
-#' @return Combined data frame with "fetch_range" attribute.
+#' @return Combined data frame with "fetch_info" attribute.
 #' @export
 #' @examples
 #' \donttest{
@@ -135,16 +132,16 @@ fetch_bddk <- function(start_year, start_month, end_year, end_month, table_no,
   combined_df <- do.call(rbind, results)
   rownames(combined_df) <- NULL
   
-  attr(combined_df, "fetch_range") <- list(
+  attr(combined_df, "fetch_info") <- list(
     start_date = format(min(month_dates), "%Y-%m"),
     end_date = format(max(month_dates), "%Y-%m"),
     table_no = table_no,
     currency = currency,
     grup_kod = grup_kod,
     lang = lang,
-    months_requested = length(month_dates),
-    months_successful = length(results),
-    months_failed = length(errors),
+    # months_requested = length(month_dates),
+    # months_successful = length(results),
+    # months_failed = length(errors),
     errors = errors
   )
   

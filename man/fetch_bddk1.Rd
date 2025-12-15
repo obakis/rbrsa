@@ -2,8 +2,7 @@
 % Please edit documentation in R/fetch_bddk.R
 \name{fetch_bddk1}
 \alias{fetch_bddk1}
-\title{Fetch single period table from BDDK website
-Retrieves data for a specific table, month, and grup_kod from the BDDK Monthly Bulletin.}
+\title{Fetch single period table from BDDK website}
 \usage{
 fetch_bddk1(
   year,
@@ -33,7 +32,6 @@ Use \code{\link{list_groups}} with \code{source = "bddk"} to see available optio
 Data frame with data and period/currency metadata.
 }
 \description{
-Fetch single period table from BDDK website
 Retrieves data for a specific table, month, and grup_kod from the BDDK Monthly Bulletin.
 }
 \examples{

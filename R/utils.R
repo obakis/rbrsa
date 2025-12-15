@@ -37,7 +37,7 @@ parse_bddk_json <- function(parsed_json) {
 
 #' Save Fetched Data to Multiple Formats
 #'
-#' @param df Data frame to save (with fetch_range attribute for auto-naming).
+#' @param df Data frame to save (with fetch_info attribute for auto-naming).
 #' @param filename Base name for output file (without extension).
 #' @param format Output format: "rds", "csv", or "xlsx". Default "rds".
 #' @return Full file path (invisibly).
@@ -46,7 +46,7 @@ parse_bddk_json <- function(parsed_json) {
 #' @examples
 #' \dontrun{
 #'   my_data <- fetch_bddk1(2024, 1, 15)
-#'   temp_file <- tempfile(fileext = ".csv")
+#'   temp_file <- tempfile() # filename should be without extension
 #'   save_data(my_data, temp_file, format = "csv")
 #' }
 save_data <- function(df, filename = NULL, format = "rds") {
@@ -56,9 +56,9 @@ save_data <- function(df, filename = NULL, format = "rds") {
   }
 
   if (is.null(filename)) {
-    params <- attr(df, "fetch_range")
+    params <- attr(df, "fetch_info")
     if (is.null(params)) {
-      stop("Data frame must have a 'fetch_range' attribute for automatic naming.")
+      stop("Data frame must have a 'fetch_info' attribute for automatic naming.")
     }
     filename <- sprintf("bddk_table%s_%s_%s.%s",
                         params$table_no,
@@ -90,12 +90,12 @@ save_data <- function(df, filename = NULL, format = "rds") {
 }
 
 
-#' Convert plaka (license plate number)  to city code
-#' Maps Turkish license plate numbers to city names used in the Finturk API.
+#' Convert plaka (license plate number)  to province name
+#' Maps Turkish license plate numbers to province names used in the Finturk API.
 #'
-#' @param plaka license plate number (0 for "HEPSI", 1-81 for cities,
+#' @param plaka license plate number (0 for "HEPSI", 1-81 for provinces,
 #' 999 for "YURT DISI")
-#' @return City code in ALL CAPS as required by API
+#' @return province name in ALL CAPS as required by API
 #' @export
 #' @examples
 #' plaka_to_city(6)   # "ANKARA"
@@ -107,7 +107,7 @@ plaka_to_city <- function(plaka) {
     stop(sprintf("Invalid plaka number: %d. Valid plaka: 0 (HEPSI), 1-81,
                  999 (YURT DISI)", plaka))
   }
-  cities$city[cities$plaka == plaka]
+  cities$il[cities$plaka == plaka]
 }
 
 #' List Available Cities for Finturk
@@ -124,8 +124,8 @@ list_cities <- function() {
   cat("  Plaka 0 = HEPSI (All Cities)\n")
 
   df = data.frame(
-    Plate = cities$plaka,
-    City = cities$city
+    plaka = cities$plaka,
+    il = cities$il
   )
   print(df, row.names = FALSE)
   invisible(df)

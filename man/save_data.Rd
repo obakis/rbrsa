@@ -7,7 +7,7 @@
 save_data(df, filename = NULL, format = "rds")
 }
 \arguments{
-\item{df}{Data frame to save (with fetch_range attribute for auto-naming).}
+\item{df}{Data frame to save (with fetch_info attribute for auto-naming).}
 
 \item{filename}{Base name for output file (without extension).}
 
@@ -22,7 +22,7 @@ Save Fetched Data to Multiple Formats
 \examples{
 \dontrun{
   my_data <- fetch_bddk1(2024, 1, 15)
-  temp_file <- tempfile(fileext = ".csv")
+  temp_file <- tempfile() # filename should be without extension
   save_data(my_data, temp_file, format = "csv")
 }
 }

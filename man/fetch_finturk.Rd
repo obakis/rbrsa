@@ -2,8 +2,7 @@
 % Please edit documentation in R/fetch_finturk.R
 \name{fetch_finturk}
 \alias{fetch_finturk}
-\title{Fetch multiple period Finturk data
-Fetches Finturk data for a range of quarters by calling fetch_finturk1 iteratively.}
+\title{Fetch multiple period Finturk data}
 \usage{
 fetch_finturk(
   start_year,
@@ -35,10 +34,9 @@ Use \code{\link{list_groups}} with \code{source = "finturk"} to see available op
 \item{verbose}{Print progress messages. Default TRUE.}
 }
 \value{
-Combined data frame with "fetch_range" attribute.
+Combined data frame with "fetch_info" attribute.
 }
 \description{
-Fetch multiple period Finturk data
 Fetches Finturk data for a range of quarters by calling fetch_finturk1 iteratively.
 }
 \examples{

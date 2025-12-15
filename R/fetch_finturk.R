@@ -18,20 +18,16 @@
 #' }
 fetch_finturk1 <- function(year, month, table_no, 
                            grup_kod = 10001, il = 0) {
-  
   if (!month %in% c(3, 6, 9, 12)) {
     stop("Finturk requires quarterly months (3,6,9,12)")
   }
   if (!is.numeric(il)) {
     stop("Finturk requires plaka (license plate) number: 0 (ALL), 1-81")
   }
+  cities <- get("finturk_cities", envir = asNamespace("rbrsa"))
+  city_name <- plaka_to_city(il)   #Convert plaka to city name for API
   
-  # Convert plate to city code for API
-  city_name <- plaka_to_city(il)
-  
-  # API Request
   base_url <- "https://www.bddk.org.tr/BultenFinturk/tr/Home/VeriGetir"
-  
   req <- httr2::request(base_url) |>
     httr2::req_body_form(
         tabloNo = as.character(table_no),
@@ -73,15 +69,12 @@ fetch_finturk1 <- function(year, month, table_no,
   df$il <- il
   df$table_no <- as.character(table_no)
   
-  if (!is.null(parsed$Json$caption)) {
-    df$tablo_baslik <- parsed$Json$caption
-  }
-  
   df
 }
 
 
 #' Fetch multiple period Finturk data
+#'
 #' Fetches Finturk data for a range of quarters by calling fetch_finturk1 iteratively.
 #'
 #' @param start_year,end_year Starting/ending year (YYYY).
@@ -93,7 +86,7 @@ fetch_finturk1 <- function(year, month, table_no,
 #' @param il plaka (license plate) number (0-81, 99). Default 0.
 #' @param delay Delay between requests in seconds. Default 0.5.
 #' @param verbose Print progress messages. Default TRUE.
-#' @return Combined data frame with "fetch_range" attribute.
+#' @return Combined data frame with "fetch_info" attribute.
 #' @export
 #' @examples
 #' \donttest{
@@ -162,15 +155,15 @@ fetch_finturk <- function(start_year, start_month, end_year, end_month,
   combined_df <- do.call(rbind, results)
   rownames(combined_df) <- NULL
   
-  attr(combined_df, "fetch_range") <- list(
+  attr(combined_df, "fetch_info") <- list(
     start_date = sprintf("%d-%02d", start_year, start_month),
     end_date = sprintf("%d-%02d", end_year, end_month),
     table_no = table_no,
     grup_kod = grup_kod,
     il = il,
-    periods_requested = length(periods),
-    periods_successful = length(results),
-    periods_failed = length(errors),
+    # periods_requested = length(periods),
+    # periods_successful = length(results),
+    # periods_failed = length(errors),
     errors = errors
   )
   
