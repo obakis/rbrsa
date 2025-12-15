@@ -1,7 +1,7 @@
-# Convert plaka (license plate number) to city code Maps Turkish license plate numbers to city names used in the Finturk API.
+# Convert plaka (license plate number) to province name Maps Turkish license plate numbers to province names used in the Finturk API.
 
-Convert plaka (license plate number) to city code Maps Turkish license
-plate numbers to city names used in the Finturk API.
+Convert plaka (license plate number) to province name Maps Turkish
+license plate numbers to province names used in the Finturk API.
 
 ## Usage
 
@@ -13,12 +13,12 @@ plaka_to_city(plaka)
 
 - plaka:
 
-  license plate number (0 for "HEPSI", 1-81 for cities, 999 for "YURT
+  license plate number (0 for "HEPSI", 1-81 for provinces, 999 for "YURT
   DISI")
 
 ## Value
 
-City code in ALL CAPS as required by API
+province name in ALL CAPS as required by API
 
 ## Examples
 

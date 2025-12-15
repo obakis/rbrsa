@@ -32,6 +32,12 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/introduction.html">Getting Started with Turkish Banking Data</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -67,7 +73,9 @@
 <div class="section level2">
 <h2 id="design-philosophy">Design Philosophy<a class="anchor" aria-label="anchor" href="#design-philosophy"></a>
 </h2>
-<p>Unlike configuration-heavy approaches, such as <a href="https://github.com/ozancanozdemir/bddkR" class="external-link">bddkR</a> (which is a based on <a href="https://github.com/urazakgul/bddkdata" class="external-link">bddkdata</a>, a Python package), rbrsa uses a programmatic design that dynamically extracts column structures from API responses while maintaining a stable user interface. This approach reduces maintenance burden and adapts to BRSA API changes.</p>
+<p><strong>Lightweight and Authentic:</strong> Other packages providing access to BDDK data (like <code>bddkR</code>) also fetch data programmatically, but they add a <strong>heavy translation layer</strong>—maintaining manual configuration files to map Turkish column names and categorical values to English. This provides user convenience at a high maintenance cost.</p>
+<p><code>rbrsa</code> takes a different path. It interacts directly with the API and uses the data it returns with minimal alteration: * For the <strong>Monthly Bulletin</strong>, it uses the <strong>official English column names and labels</strong> provided by the API when <code>lang = "en"</code> is set. * For the <strong>Finturk dataset</strong>, where the API provides data only in Turkish, it returns the <strong>authentic Turkish names</strong>.</p>
+<p><strong>This is a deliberate choice.</strong> By avoiding a separate translation system, <code>rbrsa</code> eliminates a major maintenance burden, instantly adapts to any API changes, and guarantees the data you see is exactly what the official source provides.</p>
 </div>
 <div class="section level2">
 <h2 id="related-packages">Related Packages<a class="anchor" aria-label="anchor" href="#related-packages"></a>
@@ -99,8 +107,8 @@
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
 <p><em>Full package documentation with function references is available at</em>: <a href="https://obakis.github.io/rbrsa/" class="uri">https://obakis.github.io/rbrsa/</a></p>
-<p>rbrsa package retrieves tablesfrom two distinct publication portals maintained by the Turkish Banking Regulation and Supervision Agency (BDDK). Both portals are official sources, but they organize the data differently: The <a href="https://www.bddk.org.tr/bultenaylik" class="external-link">Monthly Bulletin Portal</a> provides high-level, summary reports designed for general consumption and quick overviews of monthly trends without any geographic coverage. The <a href="https://www.bddk.org.tr/BultenFinturk/" class="external-link">Finturk Data System</a> provides granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.</p>
-<p>Note: Currently, only a single grup_kod can be specified per request. The underlying BDDK API supports multiple codes, and this functionality will be added in a future version.</p>
+<p>The <code>rbrsa</code> package retrieves tables from two distinct publication portals maintained by the Turkish Banking Regulation and Supervision Agency (BDDK). Both portals are official sources, but they organize the data differently: The <a href="https://www.bddk.org.tr/bultenaylik" class="external-link">Monthly Bulletin Portal</a> provides high-level, summary reports designed for general consumption and quick overviews of monthly trends without any geographic coverage. The <a href="https://www.bddk.org.tr/BultenFinturk/" class="external-link">Finturk Data System</a> provides granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.</p>
+<p>Note: Currently, only a single <code>grup_kod</code> can be specified per request. The underlying BDDK API supports multiple <code>grup_kod</code> codes, and this functionality will be added in a future version.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/obakis/rbrsa" class="external-link">rbrsa</a></span><span class="op">)</span></span>
 <span><span class="co">## Explore available tables</span></span>
@@ -117,7 +125,7 @@
 <span><span class="va">q_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/fetch_finturk.html">fetch_finturk</a></span><span class="op">(</span><span class="fl">2024</span>, <span class="fl">3</span>, <span class="fl">2024</span>, <span class="fl">9</span>, table_no <span class="op">=</span> <span class="fl">1</span>, grup_kod <span class="op">=</span> <span class="fl">10007</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Save results</span></span>
-<span><span class="va">temp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span> <span class="co"># filenames is without extension</span></span>
+<span><span class="va">temp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># filename should be without extension</span></span>
 <span><span class="fu"><a href="reference/save_data.html">save_data</a></span><span class="op">(</span><span class="va">q_data</span>, <span class="va">temp_file</span>, format <span class="op">=</span> <span class="st">"csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

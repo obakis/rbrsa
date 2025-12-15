@@ -21,7 +21,7 @@ list_cities()
 #> Available cities for Finturk quarterly data:
 #> (Use plate number in fetch_finturk functions)
 #>   Plaka 0 = HEPSI (All Cities)
-#>  Plate           City
+#>  plaka             il
 #>      0          HEPSİ
 #>      1          ADANA
 #>      2       ADIYAMAN

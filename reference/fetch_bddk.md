@@ -1,7 +1,7 @@
-# Fetch multiple period table from BDDK website Fetches BDDK data for a range of months by calling fetch_bddk1 iteratively.
+# Fetch multiple period table from BDDK website
 
-Fetch multiple period table from BDDK website Fetches BDDK data for a
-range of months by calling fetch_bddk1 iteratively.
+Fetches BDDK data for a range of months by calling fetch_bddk1
+iteratively.
 
 ## Usage
 
@@ -60,7 +60,7 @@ fetch_bddk(
 
 ## Value
 
-Combined data frame with "fetch_range" attribute.
+Combined data frame with "fetch_info" attribute.
 
 ## Examples
 

@@ -1,7 +1,7 @@
-# Fetch multiple period Finturk data Fetches Finturk data for a range of quarters by calling fetch_finturk1 iteratively.
+# Fetch multiple period Finturk data
 
-Fetch multiple period Finturk data Fetches Finturk data for a range of
-quarters by calling fetch_finturk1 iteratively.
+Fetches Finturk data for a range of quarters by calling fetch_finturk1
+iteratively.
 
 ## Usage
 
@@ -55,7 +55,7 @@ fetch_finturk(
 
 ## Value
 
-Combined data frame with "fetch_range" attribute.
+Combined data frame with "fetch_info" attribute.
 
 ## Examples
 

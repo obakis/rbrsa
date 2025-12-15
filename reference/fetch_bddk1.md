@@ -1,7 +1,7 @@
-# Fetch single period table from BDDK website Retrieves data for a specific table, month, and grup_kod from the BDDK Monthly Bulletin.
+# Fetch single period table from BDDK website
 
-Fetch single period table from BDDK website Retrieves data for a
-specific table, month, and grup_kod from the BDDK Monthly Bulletin.
+Retrieves data for a specific table, month, and grup_kod from the BDDK
+Monthly Bulletin.
 
 ## Usage
 

@@ -12,7 +12,7 @@ save_data(df, filename = NULL, format = "rds")
 
 - df:
 
-  Data frame to save (with fetch_range attribute for auto-naming).
+  Data frame to save (with fetch_info attribute for auto-naming).
 
 - filename:
 
@@ -31,7 +31,7 @@ Full file path (invisibly).
 ``` r
 if (FALSE) { # \dontrun{
   my_data <- fetch_bddk1(2024, 1, 15)
-  temp_file <- tempfile(fileext = ".csv")
+  temp_file <- tempfile() # filename should be without extension
   save_data(my_data, temp_file, format = "csv")
 } # }
 ```
