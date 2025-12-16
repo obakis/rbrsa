@@ -1,8 +1,12 @@
 .Rproj.user
-data-raw/
-*.numbers
 .DS_Store
 */.DS_Store
 .Rhistory
+_create_rbrsa.sh
+_update_rbrsa.sh
+_call_update_rbrsa.sh
+_create_update_rbrsa_R.R_create_update_rbrsa_website.R
+Makefile
+data-raw/
 docs
 inst/doc

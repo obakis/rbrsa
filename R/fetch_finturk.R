@@ -1,77 +1,130 @@
-#' Fetch single period Finturk data
+
+#' Fetch Quarterly Data from BDDK Finturk with Multiple Provinces
 #'
-#' Retrieves quarterly data from the BDDK Finturk website
+#' Retrieves quarterly banking data from the BDDK Finturk API for specified
+#' group codes and provinces. Supports multiple group codes and province
+#' codes in a single request.
 #'
 #' @param year Year as 4-digit integer (YYYY).
 #' @param month Month as integer (3,6,9,12 for quarterly data).
 #' @param table_no Table number to fetch (1-7). No default.
 #' @param grup_kod Group code (10001-1007). Default 10001.
-#' @param il plaka (license plate) number (0-81, 99). Default 0.
+#' @param il plaka (license plate) number (0-81); 999 = Yurt Dışı. Default 0.
 #'   0=HEPSİ (All Cities), 1=Adana, 6=Ankara, 34=İstanbul, 35=İzmir, etc.
 #'   See \code{\link{list_cities}} for full list.
-#' @return Data frame with data and period metadata.
-#' @export
+#' @return Data frame with a `fetch_info` attribute that contains query details.
+#' @details
+#' The Finturk API only provides data for quarter-ending months (March, June,
+#'   September, December). Province codes follow Turkey's standard license
+#'   plate numbering (1 = Adana, 6 = Ankara, 34 = İstanbul, etc.).
+#'
 #' @examples
-#' \donttest{
-#'   # Fetch Table 1 (Loans) for Q1 2024
-#'   data <- fetch_finturk1(2024, 3, 1)
-#' }
+#' # Single group, all provinces
+#' fetch_finturk1(2020, 3, 1, grup_kod = 10001)
+#'
+#' # Multiple groups and specific provinces
+#' fetch_finturk1(2020, 3, 1, grup_kod = c(10006, 10007), il = c(6, 34))
+#'
+#' # Single group, single province
+#' fetch_finturk1(2020, 3, 1, grup_kod = 10001, il = 34)
+#'
+#' @seealso [fetch_bddk1()] for monthly data without province granularity.
+#' @importFrom rlang :=
+#' @export
 fetch_finturk1 <- function(year, month, table_no, 
-                           grup_kod = 10001, il = 0) {
+                          grup_kod = 10001, il = 0) {
+
   if (!month %in% c(3, 6, 9, 12)) {
-    stop("Finturk requires quarterly months (3,6,9,12)")
+    stop("Finturk requires quarterly months (3, 6, 9, 12)")
   }
-  if (!is.numeric(il)) {
-    stop("Finturk requires plaka (license plate) number: 0 (ALL), 1-81")
-  }
-  cities <- get("finturk_cities", envir = asNamespace("rbrsa"))
-  city_name <- plaka_to_city(il)   #Convert plaka to city name for API
   
+  grup_kod <- as.character(grup_kod)
+  il <- as.numeric(il)
+  city_names <- plaka_to_city(il)
+  
+  # Build the base request
   base_url <- "https://www.bddk.org.tr/BultenFinturk/tr/Home/VeriGetir"
   req <- httr2::request(base_url) |>
     httr2::req_body_form(
-        tabloNo = as.character(table_no),
-        donem = sprintf("%d-%d", year, month),
-        `tarafList[0]` = as.character(grup_kod),
-        `sehirList[0]` = city_name
-        ) |>
+      tabloNo = as.character(table_no),
+      donem = sprintf("%d-%d", year, month)
+    )
+  
+  # Dynamically add tarafList parameters (grup_kod)
+  for (i in seq_along(grup_kod)) {
+    param_name <- sprintf("tarafList[%d]", i-1)
+    req <- httr2::req_body_form(req, !!param_name := grup_kod[i])
+  }
+  
+  # Dynamically add sehirList parameters (cities)
+  for (i in seq_along(city_names)) {
+    param_name <- sprintf("sehirList[%d]", i-1)
+    req <- httr2::req_body_form(req, !!param_name := city_names[i])
+  }
+  
+  # Add headers and timeout (keep your existing code)
+  req <- req |>
     httr2::req_headers(
       `Content-Type` = "application/x-www-form-urlencoded; charset=UTF-8",
       `X-Requested-With` = "XMLHttpRequest",
       `Referer` = "https://www.bddk.org.tr/BultenFinturk"
-      ) |>
+    ) |>
     httr2::req_timeout(30)
   
+  # Perform request (keep your existing tryCatch/parsing)
   resp <- tryCatch(
     httr2::req_perform(req),
     error = function(e) stop(sprintf("HTTP error: %s", e$message))
-  )  
+  )
+
   parsed <- jsonlite::fromJSON(
     httr2::resp_body_string(resp, encoding = "UTF-8"), 
     simplifyVector = FALSE
-  )  
+  )
   
   if (!isTRUE(parsed$success)) {
     warning("API reported unsuccessful request")
     return(data.frame())
   }
   
-  # create data frame from JSON file
+  # Parse the JSON response
   df <- parse_bddk_json(parsed$Json)
+  df
   if (nrow(df) == 0) {
-    warning(sprintf("No data for table %d, %d-%02d, grup_kod %d, plaka  %d", 
-                    table_no, year, month, grup_kod, il))
+    warning(sprintf("No data for table %s, %d-%02d", table_no, year, month))
     return(data.frame())
   }
-  # Add metadata
+
+  colnames(df)[colnames(df) == "Eftodu"] <- "grup_kod"
+#  colnames(df)[colnames(df) == "\u015eehir"] <- "il_adi"  # Unicode for Ş
+  s_idx <- grep("^\u015eehir$", colnames(df), ignore.case = TRUE, perl = TRUE)
+  colnames(df)[s_idx] <- "il_adi"
+
+  # colnames(df)[1] <- "grup_kod"
+  # char_cols <- which(sapply(df, is.character))
+  # colnames(df)[char_cols[1]] <- "il_adi"
+  
+  # Map city name to plaka code
+  cities <- get("finturk_cities", envir = asNamespace("rbrsa"))
+  city_to_plaka <- setNames(cities$plaka, cities$il)
+  df$plaka <- city_to_plaka[df$il_adi]
+
+  df$grup_kod <- as.character(df$grup_kod)
   df$period <- sprintf("%d-%02d", year, month)
-  df$grup_kod <- as.character(grup_kod)
-  df$il <- il
   df$table_no <- as.character(table_no)
   
-  df
+  # Enhanced fetch_info attribute
+  attr(df, "fetch_info") <- list(
+    start_date = sprintf("%d-%02d", year, month),
+    end_date = sprintf("%d-%02d", year, month),
+    table_no = table_no,
+    grup_kod = grup_kod,
+    il = il,
+    cities = city_names
+  )
+  
+  return(df)
 }
-
 
 #' Fetch multiple period Finturk data
 #'
@@ -87,12 +140,15 @@ fetch_finturk1 <- function(year, month, table_no,
 #' @param delay Delay between requests in seconds. Default 0.5.
 #' @param verbose Print progress messages. Default TRUE.
 #' @return Combined data frame with "fetch_info" attribute.
-#' @export
+#' 
 #' @examples
 #' \donttest{
 #'   # Fetch multiple quarters
 #'   my_data <- fetch_finturk(2024, 3, 2024, 9, table_no = 1)
 #' }
+#' 
+#' @seealso [fetch_bddk()] for monthly BRSA data .
+#' @export
 fetch_finturk <- function(start_year, start_month, end_year, end_month, 
                           table_no, grup_kod = 10001, il = 0,
                           delay = 0.5, verbose = TRUE) {

@@ -1,6 +1,9 @@
-#' Fetch single period table from BDDK website
+
+#' Fetch Monthly Data from BDDK with Multiple Group Codes
 #'
-#' Retrieves data for a specific table, month, and grup_kod from the BDDK Monthly Bulletin.
+#' Retrieves monthly banking data from the BDDK API for specified group codes.
+#' Supports multiple group codes in a single request, returning a combined
+#' data frame with consistent numeric `grup_kod` values.
 #'
 #' @param year Year as 4-digit integer (YYYY).
 #' @param month Month as integer (1-12).
@@ -10,25 +13,42 @@
 #' Use \code{\link{list_groups}} with \code{source = "bddk"} to see available options.
 #' @param currency Currency code ("TL" or "USD"). Default "TL".
 #' @param lang Language ("en" or "tr"). Default "en".
-#' @return Data frame with data and period/currency metadata.
-#' @export
+#' @return Data frame with a `fetch_info` attribute that contains query details.
+#'
 #' @examples
-#' \donttest{
-#'   # Fetch Table 15 (Ratios) for January 2024
-#'   data <- fetch_bddk1(2024, 1, 15)
-#' }
+#' # Single group code
+#' fetch_bddk1(2020, 3, 1, grup_kod = 10001)
+#'
+#' # Multiple group codes
+#' fetch_bddk1(2020, 3, 1, grup_kod = c(10001, 10002))
+#'
+#' # Turkish language output
+#' fetch_bddk1(2020, 3, 1, grup_kod = 10001, lang = "tr")
+#'
+#' @seealso [fetch_finturk1()] for quarterly province-level data.
+#' @importFrom rlang :=
+#' @export
 fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
-                        currency = "TL",  lang = "en") {
+                        currency = "TL", lang = "en") {
   base_url <- sprintf("https://www.bddk.org.tr/BultenAylik/%s/Home/BasitRaporGetir", lang)
-
+  
+  # Build parameters exactly as Python does
+  params <- list(
+    tabloNo = as.character(table_no),
+    yil = as.character(year),
+    ay = as.character(month),
+    paraBirimi = currency
+  )
+  params
+  
+    # Add each grup_kod
+  for (kod in grup_kod) {
+    params <- c(params, list(taraf = as.character(kod)))
+  }
+  params
+  # httr2 handles this format correctly
   req <- httr2::request(base_url) |>
-    httr2::req_body_form(
-      tabloNo = as.character(table_no),
-      yil = as.character(year),
-      ay = as.character(month),
-      paraBirimi = currency,
-      taraf = as.character(grup_kod)
-      ) |>
+    httr2::req_body_form(!!!params) |>
     httr2::req_timeout(30)
   
   resp <- tryCatch(
@@ -39,24 +59,33 @@ fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
   parsed <- jsonlite::fromJSON(
     httr2::resp_body_string(resp, encoding = "UTF-8"), 
     simplifyVector = FALSE
-  )  
+  )
+  
   if (!isTRUE(parsed$success)) stop("API reported unsuccessful request")
   
-  # create data frame from JSON file
   df <- parse_bddk_json(parsed$Json)
+
   if (nrow(df) == 0) {
-    warning(sprintf("No data for table %d, %d-%02d, grup_kod %d", 
-                    table_no, year, month, grup_kod))
+    warning(sprintf("No data for table %d, %d-%02d, grup_kod %s", 
+                    table_no, year, month, paste(grup_kod, collapse = ", ")))
     return(data.frame())
   }
+
+  # First column contains group names (text)
+  colnames(df)[1] <- "group_name"
   
-  # Add metadata
+  # Determine blocks of consecutive identical group names
+  group_rle <- rle(df$group_name)
+  group_counts <- group_rle$lengths
+  group_names <- group_rle$values
+  df$grup_kod <- rep(grup_kod, group_rle$lengths)
+  
   df$period <- sprintf("%d-%02d", year, month)
   df$currency <- currency
-  df$grup_kod <- as.character(grup_kod)
-#  df$table_no <- as.character(table_no)
-  df
+  return(df)
 }
+
+
 
 #' Fetch multiple period table from BDDK website
 #'
@@ -73,12 +102,15 @@ fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
 #' @param delay Delay between requests in seconds. Default 0.5.
 #' @param verbose Print progress messages. Default TRUE.
 #' @return Combined data frame with "fetch_info" attribute.
-#' @export
+#' 
 #' @examples
 #' \donttest{
 #'   # Fetch multiple months
 #'   my_dat <- fetch_bddk(2024, 1, 2024, 3, table_no = 15)
 #' }
+#' 
+#' @seealso [fetch_finturk()] for quarterly province-level data.
+#' @export
 fetch_bddk <- function(start_year, start_month, end_year, end_month, table_no,
                        grup_kod = 10001, currency = "TL", lang = "en",
                        delay = 0.5, verbose = TRUE) {

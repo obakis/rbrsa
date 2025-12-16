@@ -47,4 +47,8 @@ Fetches BDDK data for a range of months by calling fetch_bddk1 iteratively.
   # Fetch multiple months
   my_dat <- fetch_bddk(2024, 1, 2024, 3, table_no = 15)
 }
+
+}
+\seealso{
+\code{\link[=fetch_finturk]{fetch_finturk()}} for quarterly province-level data.
 }

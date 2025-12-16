@@ -11,6 +11,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  fig.alt = "Default descriptive text",
   comment = "#>"
 )
 ```
@@ -127,7 +128,6 @@ Let's compare "Consumer Loans - Housing" and "Consumer Loans - Personal Finance"
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
-
 colnames(my_dat)
 cols = c("Consumer Loans - Housing","Consumer Loans - Personal Finance")
 p = my_dat |>
@@ -146,7 +146,7 @@ p = my_dat |>
     labels = scales::comma       # Format numbers with commas
   ) +
   labs(
-    title = "Consumer Loans Trend, Jan 2020-Dec 2020 (TRY)",
+    title = "Consumer Loans Trends, Jan 2020-Dec 2020 (TRY)",
     subtitle = "Monthly data for Housing vs Personal Finance loans",
     x = "",
     y = ""
@@ -190,8 +190,8 @@ Finturk data includes a province column (`il`). Let's examine the share of selec
 
 ```{r}
 sel_cities =c("ADANA","MALATYA","MUĞLA","KAYSERİ")
-cols = c("Şehir", "period","Toplam Mevduat")
-lookup <- c(city="Şehir", deposit="Toplam Mevduat")
+cols = c("il_adi", "period","Toplam Mevduat")
+lookup <- c(city="il_adi", deposit="Toplam Mevduat")
 p2 = my_dat2[,cols] |>
   rename(all_of(lookup)) |>
   mutate(date=as.Date(paste0(period, "-01"))) |>
@@ -206,7 +206,7 @@ p2 = my_dat2[,cols] |>
     expand = c(0.01, 0)           # Reduce padding
   ) +
   labs(
-    title = "Share of Selected Cities in Deposits, 2020-2023 (TRY)",
+    title = "Share of Selected Provinces in Deposits, 2020-2023 (TRY)",
     x = "",
     y = ""
   ) +
@@ -244,9 +244,7 @@ This vignette demonstrated the basic workflow of the `rbrs` package. To learn mo
 2.  Try different tables and banking groups using `list_tables()` and `list_groups()`.
 3.  Check out the `pybrsa` package (https://github.com/obakis/pybrsa) for similar functionality in Python. (UNDER CONSTRUCTION)
 
-## Note on Current Limitations
 
-Currently, only a single `grup_kod` or province can be specified per request. The underlying BDDK API supports multiple `grup_kod`s or provinces, and this functionality will be added in a future version of `rbrsa`.
 
 ```{r, include=FALSE}
 # Optional: Ensure all packages needed for building are available

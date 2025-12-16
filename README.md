@@ -9,27 +9,20 @@ An R package for programmatic access to Turkish banking sector data from the Tur
 - Direct API access to BRSA monthly bulletins (17 financial tables)
 - Quarterly Finturk data with city-level granularity (7 tables, 82 cities including 'HEPSİ' for all cities)
 - Consistent parameter interface for both data sources
-- Built-in metadata for tables, banking groups, and cities
+- Built-in metadata for tables, banking groups, and provinces
 - Multiple export formats: RDS, CSV, Excel via `save_data()`
 - Returns base R data frames ready for analysis
 
 ## Design Philosophy
 
-**Lightweight and Authentic:** Other packages providing access to BDDK data 
-(like `bddkR`) also fetch data programmatically, but they add 
-a **heavy translation layer**—maintaining manual configuration files to map 
-Turkish column names and categorical values to English. 
-This provides user convenience at a high maintenance cost.
+__Lightweight and Authentic:__ Other packages providing access to BDDK data  (like `bddkR`) also fetch data programmatically, but they add  a heavy translation layer —maintaining manual configuration files to map  Turkish column names and categorical values to English.  This provides user convenience at a high maintenance cost.
 
 `rbrsa` takes a different path. It interacts directly with the API and uses the data it returns with minimal alteration:
-*   For the **Monthly Bulletin**, it uses the **official English column names and labels** provided 
-by the API when `lang = "en"` is set.
-*   For the **Finturk dataset**, where the API provides data only in 
-Turkish, it returns the **authentic Turkish names**.
 
-**This is a deliberate choice.** By avoiding a separate translation system, 
-`rbrsa` eliminates a major maintenance burden, instantly adapts to any API changes, 
-and guarantees the data you see is exactly what the official source provides.
+*   For the **Monthly Bulletin**, it uses the **official English column names and labels** provided by the API when `lang = "en"` is set.
+*   For the **Finturk dataset**, where the API provides data only in Turkish, it returns the **authentic Turkish names**.
+
+__This is a deliberate choice.__ By avoiding a separate translation file, `rbrsa` eliminates a major maintenance burden, aiming to adapt instantly to any API changes. This way, the data you see is exactly what the official source provides.
 
 
 ## Related Packages
@@ -67,10 +60,7 @@ overviews of monthly trends without any geographic coverage.
 The [Finturk Data System](https://www.bddk.org.tr/BultenFinturk/) provides 
 granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.
 
-Note: Currently, only a single `grup_kod` can be specified per request. 
-The underlying BDDK API supports multiple `grup_kod` codes, and this functionality 
-will be added in a future version.
- 
+
 ```r
 library(rbrsa)
 ## Explore available tables

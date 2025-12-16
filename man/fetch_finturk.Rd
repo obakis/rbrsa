@@ -44,4 +44,8 @@ Fetches Finturk data for a range of quarters by calling fetch_finturk1 iterative
   # Fetch multiple quarters
   my_data <- fetch_finturk(2024, 3, 2024, 9, table_no = 1)
 }
+
+}
+\seealso{
+\code{\link[=fetch_bddk]{fetch_bddk()}} for monthly BRSA data .
 }

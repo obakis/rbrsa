@@ -5,35 +5,28 @@
 #' @importFrom stats setNames
 #' @noRd
 parse_bddk_json <- function(parsed_json) {
-  non_hidden <- which(!sapply(parsed_json$colModels, function(x) isTRUE(x$hidden)))
-  if (length(non_hidden) == 0) non_hidden <- seq_along(parsed_json$colModels)
-
-  # Extract and filter components
-  col_models <- parsed_json$colModels[non_hidden]
-  col_labels <- parsed_json$colNames[non_hidden]
+  # Keep all columns. The FinTurk website "hide" some columns for UI display purposes
+  cols_to_keep <- seq_along(parsed_json$colModels)
+  col_models <- parsed_json$colModels[cols_to_keep]
+  col_labels <- parsed_json$colNames[cols_to_keep]
   rows <- parsed_json$data$rows
-
+  
   if (length(rows) == 0) return(data.frame())
-
-  # Generate valid column names
+  
   final_names <- ifelse(col_labels != "", col_labels,
                         sapply(col_models, function(x) x$name))
-
-  # Extract cell data for non-hidden columns
-  filtered_rows <- lapply(rows, function(row) row$cell[non_hidden])
-
-  # Build column list, handling NULLs
-  col_list <- lapply(seq_along(non_hidden), function(i) {
+  
+  filtered_rows <- lapply(rows, function(row) row$cell[cols_to_keep])
+  
+  col_list <- lapply(seq_along(cols_to_keep), function(i) {
     col_vals <- sapply(filtered_rows, function(x) x[[i]])
     col_vals[sapply(col_vals, is.null)] <- NA
     unlist(col_vals)
   })
-
-  # Create data frame using list2DF function in base R
+  
   df <- list2DF(setNames(col_list, final_names))
   return(df)
 }
-
 
 #' Save Fetched Data to Multiple Formats
 #'
@@ -103,11 +96,16 @@ save_data <- function(df, filename = NULL, format = "rds") {
 #' plaka_to_city(0)   # "HEPSI"
 plaka_to_city <- function(plaka) {
   cities <- get("finturk_cities", envir = asNamespace("rbrsa"))
-  if (!plaka %in% cities$plaka) {
-    stop(sprintf("Invalid plaka number: %d. Valid plaka: 0 (HEPSI), 1-81,
-                 999 (YURT DISI)", plaka))
+  invalid <- setdiff(plaka, cities$plaka)
+  invalid
+  if (length(invalid) > 0) {
+    stop(sprintf(
+      "Invalid plaka(s): %s. Valid plaka: 0 (HEPSI), 1-81, 999 (YURT DISI)",
+      paste(invalid, collapse = ", ")
+    ))
   }
-  cities$il[cities$plaka == plaka]
+  # Match plaka codes to city names 
+  cities$il[match(plaka, cities$plaka)]  
 }
 
 #' List Available Cities for Finturk

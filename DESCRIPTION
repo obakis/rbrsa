@@ -15,7 +15,8 @@ Depends:
 Imports:
     httr2 (>= 1.0.0),
     jsonlite (>= 1.8.0),
-    writexl 
+    writexl,
+    rlang (>= 1.1.6) 
 Suggests:
     dplyr,
     ggplot2,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_bddk.R
 \name{fetch_bddk1}
 \alias{fetch_bddk1}
-\title{Fetch single period table from BDDK website}
+\title{Fetch Monthly Data from BDDK with Multiple Group Codes}
 \usage{
 fetch_bddk1(
   year,
@@ -29,14 +29,24 @@ Use \code{\link{list_groups}} with \code{source = "bddk"} to see available optio
 \item{lang}{Language ("en" or "tr"). Default "en".}
 }
 \value{
-Data frame with data and period/currency metadata.
+Data frame with a \code{fetch_info} attribute that contains query details.
 }
 \description{
-Retrieves data for a specific table, month, and grup_kod from the BDDK Monthly Bulletin.
+Retrieves monthly banking data from the BDDK API for specified group codes.
+Supports multiple group codes in a single request, returning a combined
+data frame with consistent numeric \code{grup_kod} values.
 }
 \examples{
-\donttest{
-  # Fetch Table 15 (Ratios) for January 2024
-  data <- fetch_bddk1(2024, 1, 15)
+# Single group code
+fetch_bddk1(2020, 3, 1, grup_kod = 10001)
+
+# Multiple group codes
+fetch_bddk1(2020, 3, 1, grup_kod = c(10001, 10002))
+
+# Turkish language output
+fetch_bddk1(2020, 3, 1, grup_kod = 10001, lang = "tr")
+
 }
+\seealso{
+\code{\link[=fetch_finturk1]{fetch_finturk1()}} for quarterly province-level data.
 }
