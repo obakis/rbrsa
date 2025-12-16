@@ -1,3 +1,5 @@
+# rbrsa 0.2.0
+
 # rbrsa 0.1.0
 
 * Initial release with core functionality

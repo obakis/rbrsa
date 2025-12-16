@@ -1,6 +1,6 @@
 Package: rbrsa
 Title: Fetch Turkish Banking Sector Data from BRSA (BDDK)
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Ozan",    family = "Bakis",
     email = "ozanbakis@gmail.com", role = c("aut", "cre"))
