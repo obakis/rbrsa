@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">rbrsa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@
 <li>Direct API access to BRSA monthly bulletins (17 financial tables)</li>
 <li>Quarterly Finturk data with city-level granularity (7 tables, 82 cities including ‘HEPSİ’ for all cities)</li>
 <li>Consistent parameter interface for both data sources</li>
-<li>Built-in metadata for tables, banking groups, and cities</li>
+<li>Built-in metadata for tables, banking groups, and provinces</li>
 <li>Multiple export formats: RDS, CSV, Excel via <code><a href="reference/save_data.html">save_data()</a></code>
 </li>
 <li>Returns base R data frames ready for analysis</li>
@@ -73,9 +73,13 @@
 <div class="section level2">
 <h2 id="design-philosophy">Design Philosophy<a class="anchor" aria-label="anchor" href="#design-philosophy"></a>
 </h2>
-<p><strong>Lightweight and Authentic:</strong> Other packages providing access to BDDK data (like <code>bddkR</code>) also fetch data programmatically, but they add a <strong>heavy translation layer</strong>—maintaining manual configuration files to map Turkish column names and categorical values to English. This provides user convenience at a high maintenance cost.</p>
-<p><code>rbrsa</code> takes a different path. It interacts directly with the API and uses the data it returns with minimal alteration: * For the <strong>Monthly Bulletin</strong>, it uses the <strong>official English column names and labels</strong> provided by the API when <code>lang = "en"</code> is set. * For the <strong>Finturk dataset</strong>, where the API provides data only in Turkish, it returns the <strong>authentic Turkish names</strong>.</p>
-<p><strong>This is a deliberate choice.</strong> By avoiding a separate translation system, <code>rbrsa</code> eliminates a major maintenance burden, instantly adapts to any API changes, and guarantees the data you see is exactly what the official source provides.</p>
+<p><strong>Lightweight and Authentic:</strong> Other packages providing access to BDDK data (like <code>bddkR</code>) also fetch data programmatically, but they add a heavy translation layer —maintaining manual configuration files to map Turkish column names and categorical values to English. This provides user convenience at a high maintenance cost.</p>
+<p><code>rbrsa</code> takes a different path. It interacts directly with the API and uses the data it returns with minimal alteration:</p>
+<ul>
+<li>For the <strong>Monthly Bulletin</strong>, it uses the <strong>official English column names and labels</strong> provided by the API when <code>lang = "en"</code> is set.</li>
+<li>For the <strong>Finturk dataset</strong>, where the API provides data only in Turkish, it returns the <strong>authentic Turkish names</strong>.</li>
+</ul>
+<p><strong>This is a deliberate choice.</strong> By avoiding a separate translation file, <code>rbrsa</code> eliminates a major maintenance burden, aiming to adapt instantly to any API changes. This way, the data you see is exactly what the official source provides.</p>
 </div>
 <div class="section level2">
 <h2 id="related-packages">Related Packages<a class="anchor" aria-label="anchor" href="#related-packages"></a>
@@ -108,7 +112,6 @@
 </h2>
 <p><em>Full package documentation with function references is available at</em>: <a href="https://obakis.github.io/rbrsa/" class="uri">https://obakis.github.io/rbrsa/</a></p>
 <p>The <code>rbrsa</code> package retrieves tables from two distinct publication portals maintained by the Turkish Banking Regulation and Supervision Agency (BDDK). Both portals are official sources, but they organize the data differently: The <a href="https://www.bddk.org.tr/bultenaylik" class="external-link">Monthly Bulletin Portal</a> provides high-level, summary reports designed for general consumption and quick overviews of monthly trends without any geographic coverage. The <a href="https://www.bddk.org.tr/BultenFinturk/" class="external-link">Finturk Data System</a> provides granular, detailed data, including statistics broken down by province, whereas the standard Monthly Bulletin offers national-level aggregates.</p>
-<p>Note: Currently, only a single <code>grup_kod</code> can be specified per request. The underlying BDDK API supports multiple <code>grup_kod</code> codes, and this functionality will be added in a future version.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/obakis/rbrsa" class="external-link">rbrsa</a></span><span class="op">)</span></span>
 <span><span class="co">## Explore available tables</span></span>

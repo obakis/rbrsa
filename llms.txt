@@ -14,7 +14,7 @@ sectoral indicators directly from BRSA’s official APIs.
 - Quarterly Finturk data with city-level granularity (7 tables, 82
   cities including ‘HEPSİ’ for all cities)
 - Consistent parameter interface for both data sources
-- Built-in metadata for tables, banking groups, and cities
+- Built-in metadata for tables, banking groups, and provinces
 - Multiple export formats: RDS, CSV, Excel via
   [`save_data()`](https://obakis.github.io/rbrsa/reference/save_data.md)
 - Returns base R data frames ready for analysis
@@ -23,21 +23,22 @@ sectoral indicators directly from BRSA’s official APIs.
 
 **Lightweight and Authentic:** Other packages providing access to BDDK
 data (like `bddkR`) also fetch data programmatically, but they add a
-**heavy translation layer**—maintaining manual configuration files to
-map Turkish column names and categorical values to English. This
-provides user convenience at a high maintenance cost.
+heavy translation layer —maintaining manual configuration files to map
+Turkish column names and categorical values to English. This provides
+user convenience at a high maintenance cost.
 
 `rbrsa` takes a different path. It interacts directly with the API and
-uses the data it returns with minimal alteration: \* For the **Monthly
-Bulletin**, it uses the **official English column names and labels**
-provided by the API when `lang = "en"` is set. \* For the **Finturk
-dataset**, where the API provides data only in Turkish, it returns the
-**authentic Turkish names**.
+uses the data it returns with minimal alteration:
+
+- For the **Monthly Bulletin**, it uses the **official English column
+  names and labels** provided by the API when `lang = "en"` is set.
+- For the **Finturk dataset**, where the API provides data only in
+  Turkish, it returns the **authentic Turkish names**.
 
 **This is a deliberate choice.** By avoiding a separate translation
-system, `rbrsa` eliminates a major maintenance burden, instantly adapts
-to any API changes, and guarantees the data you see is exactly what the
-official source provides.
+file, `rbrsa` eliminates a major maintenance burden, aiming to adapt
+instantly to any API changes. This way, the data you see is exactly what
+the official source provides.
 
 ## Related Packages
 
@@ -81,10 +82,6 @@ System](https://www.bddk.org.tr/BultenFinturk/) provides granular,
 detailed data, including statistics broken down by province, whereas the
 standard Monthly Bulletin offers national-level aggregates.
 
-Note: Currently, only a single `grup_kod` can be specified per request.
-The underlying BDDK API supports multiple `grup_kod` codes, and this
-functionality will be added in a future version.
-
 ``` r
 library(rbrsa)
 ## Explore available tables
@@ -112,11 +109,11 @@ save_data(q_data, temp_file, format = "csv")
 - [`fetch_bddk()`](https://obakis.github.io/rbrsa/reference/fetch_bddk.md)
   : Fetch multiple period table from BDDK website
 - [`fetch_bddk1()`](https://obakis.github.io/rbrsa/reference/fetch_bddk1.md)
-  : Fetch single period table from BDDK website
+  : Fetch Monthly Data from BDDK with Multiple Group Codes
 - [`fetch_finturk()`](https://obakis.github.io/rbrsa/reference/fetch_finturk.md)
   : Fetch multiple period Finturk data
 - [`fetch_finturk1()`](https://obakis.github.io/rbrsa/reference/fetch_finturk1.md)
-  : Fetch single period Finturk data
+  : Fetch Quarterly Data from BDDK Finturk with Multiple Provinces
 - [`list_cities()`](https://obakis.github.io/rbrsa/reference/list_cities.md)
   : List Available Cities for Finturk Print available cities for Finturk
   quarterly data with plaka (license plate) numbers.

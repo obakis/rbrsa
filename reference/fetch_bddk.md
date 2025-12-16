@@ -62,6 +62,11 @@ fetch_bddk(
 
 Combined data frame with "fetch_info" attribute.
 
+## See also
+
+[`fetch_finturk()`](https://obakis.github.io/rbrsa/reference/fetch_finturk.md)
+for quarterly province-level data.
+
 ## Examples
 
 ``` r

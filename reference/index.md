@@ -5,11 +5,11 @@
 - [`fetch_bddk()`](https://obakis.github.io/rbrsa/reference/fetch_bddk.md)
   : Fetch multiple period table from BDDK website
 - [`fetch_bddk1()`](https://obakis.github.io/rbrsa/reference/fetch_bddk1.md)
-  : Fetch single period table from BDDK website
+  : Fetch Monthly Data from BDDK with Multiple Group Codes
 - [`fetch_finturk()`](https://obakis.github.io/rbrsa/reference/fetch_finturk.md)
   : Fetch multiple period Finturk data
 - [`fetch_finturk1()`](https://obakis.github.io/rbrsa/reference/fetch_finturk1.md)
-  : Fetch single period Finturk data
+  : Fetch Quarterly Data from BDDK Finturk with Multiple Provinces
 - [`list_cities()`](https://obakis.github.io/rbrsa/reference/list_cities.md)
   : List Available Cities for Finturk Print available cities for Finturk
   quarterly data with plaka (license plate) numbers.

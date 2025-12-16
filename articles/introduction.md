@@ -311,25 +311,25 @@ my_dat <- fetch_bddk(
 #> [12/12] 2020-12... 41 rows
 # Examine the structure of the returned data
 cat("Dimensions:", dim(my_dat), "\n")
-#> Dimensions: 492 9
+#> Dimensions: 492 10
 colnames(my_dat)
-#> [1] "BankaAdi"  "BasitSira" "Ad"        "TRY"       "FX"        "Total"    
-#> [7] "period"    "currency"  "grup_kod"
+#>  [1] "group_name" "BasitSira"  "Ad"         "BasitFont"  "TRY"       
+#>  [6] "FX"         "Total"      "grup_kod"   "period"     "currency"
 head(my_dat)
-#>         BankaAdi BasitSira                                    Ad    TRY FX
-#> 1 Banking Sector         1                Consumer Loans (2+3+4) 480482 82
-#> 2 Banking Sector         2              Consumer Loans - Housing 202648 46
-#> 3 Banking Sector         3              Consumer Loans - Vehicle   6979  0
-#> 4 Banking Sector         4     Consumer Loans - Personal Finance 270855 36
-#> 5 Banking Sector         5   Consumer Loans - Fx Indexed (6+7+8)     65  0
-#> 6 Banking Sector         6 Consumer Loans - Housing (Fx Indexed)     55  0
-#>    Total  period currency grup_kod
-#> 1 480564 2020-01       TL    10001
-#> 2 202694 2020-01       TL    10001
-#> 3   6979 2020-01       TL    10001
-#> 4 270892 2020-01       TL    10001
-#> 5     65 2020-01       TL    10001
-#> 6     55 2020-01       TL    10001
+#>       group_name BasitSira                                    Ad BasitFont
+#> 1 Banking Sector         1                Consumer Loans (2+3+4)      bold
+#> 2 Banking Sector         2              Consumer Loans - Housing          
+#> 3 Banking Sector         3              Consumer Loans - Vehicle          
+#> 4 Banking Sector         4     Consumer Loans - Personal Finance          
+#> 5 Banking Sector         5   Consumer Loans - Fx Indexed (6+7+8)      bold
+#> 6 Banking Sector         6 Consumer Loans - Housing (Fx Indexed)          
+#>      TRY FX  Total grup_kod  period currency
+#> 1 480482 82 480564    10001 2020-01       TL
+#> 2 202648 46 202694    10001 2020-01       TL
+#> 3   6979  0   6979    10001 2020-01       TL
+#> 4 270855 36 270892    10001 2020-01       TL
+#> 5     65  0     65    10001 2020-01       TL
+#> 6     55  0     55    10001 2020-01       TL
 ## To save the results:
 # temp_file <- tempfile() # filename should be without extension
 # save_data(my_dat, temp_file, format = "csv")
@@ -341,10 +341,9 @@ Finance” over time.
 ``` r
 library(dplyr)
 library(ggplot2)
-
 colnames(my_dat)
-#> [1] "BankaAdi"  "BasitSira" "Ad"        "TRY"       "FX"        "Total"    
-#> [7] "period"    "currency"  "grup_kod"
+#>  [1] "group_name" "BasitSira"  "Ad"         "BasitFont"  "TRY"       
+#>  [6] "FX"         "Total"      "grup_kod"   "period"     "currency"
 cols = c("Consumer Loans - Housing","Consumer Loans - Personal Finance")
 p = my_dat |>
   select(Ad,TRY,period) |>
@@ -362,7 +361,7 @@ p = my_dat |>
     labels = scales::comma       # Format numbers with commas
   ) +
   labs(
-    title = "Consumer Loans Trend, Jan 2020-Dec 2020 (TRY)",
+    title = "Consumer Loans Trends, Jan 2020-Dec 2020 (TRY)",
     subtitle = "Monthly data for Housing vs Personal Finance loans",
     x = "",
     y = ""
@@ -376,7 +375,8 @@ theme(
 p
 ```
 
-![](introduction_files/figure-html/unnamed-chunk-7-1.png)
+![Default descriptive
+text](introduction_files/figure-html/unnamed-chunk-7-1.png)
 
 ### Part 3: Fetching Granular Finturk Data
 
@@ -399,36 +399,36 @@ my_dat2 <- fetch_finturk(
 cat("Dimensions:", dim(my_dat2), "\n")
 #> Dimensions: 656 15
 colnames(my_dat2)
-#>  [1] "Yıl"                     "Ay"                     
-#>  [3] "Şehir"                   "Grup"                   
-#>  [5] "Tasarruf Mevduatı"       "Tasarruf Mevduatı (TL)" 
-#>  [7] "Tasarruf Mevduatı (DTH)" "Diğer Mevduat"          
-#>  [9] "Diğer Mevduat (TL)"      "Diğer Mevduat (DTH)"    
-#> [11] "Toplam Mevduat"          "period"                 
-#> [13] "grup_kod"                "il"                     
+#>  [1] "grup_kod"                "Yıl"                    
+#>  [3] "Ay"                      "il_adi"                 
+#>  [5] "Grup"                    "Tasarruf Mevduatı"      
+#>  [7] "Tasarruf Mevduatı (TL)"  "Tasarruf Mevduatı (DTH)"
+#>  [9] "Diğer Mevduat"           "Diğer Mevduat (TL)"     
+#> [11] "Diğer Mevduat (DTH)"     "Toplam Mevduat"         
+#> [13] "plaka"                   "period"                 
 #> [15] "table_no"
 head(my_dat2)
-#>    Yıl Ay          Şehir   Grup Tasarruf Mevduatı Tasarruf Mevduatı (TL)
-#> 1 2023  3          ADANA SEKTÖR         101555827               68165445
-#> 2 2023  3       ADIYAMAN SEKTÖR          14189512                8769470
-#> 3 2023  3 AFYONKARAHİSAR SEKTÖR          26182581               13630002
-#> 4 2023  3           AĞRI SEKTÖR           4541209                2860903
-#> 5 2023  3        AKSARAY SEKTÖR          22535449               10411079
-#> 6 2023  3         AMASYA SEKTÖR           9456856                5505734
-#>   Tasarruf Mevduatı (DTH) Diğer Mevduat Diğer Mevduat (TL) Diğer Mevduat (DTH)
-#> 1                33390382      40948954           29321746            11627208
-#> 2                 5420042       4133270            3422143              711127
-#> 3                12552579       7218373            5476164             1742209
-#> 4                 1680306       1495488            1246086              249402
-#> 5                12124370       4662855            3259852             1403003
-#> 6                 3951122       1956146            1588133              368013
-#>   Toplam Mevduat  period grup_kod il table_no
-#> 1      142504781 2023-03    10001  0        2
-#> 2       18322782 2023-03    10001  0        2
-#> 3       33400954 2023-03    10001  0        2
-#> 4        6036697 2023-03    10001  0        2
-#> 5       27198304 2023-03    10001  0        2
-#> 6       11413002 2023-03    10001  0        2
+#>   grup_kod  Yıl Ay         il_adi   Grup Tasarruf Mevduatı
+#> 1    10001 2023  3          ADANA SEKTÖR         101555827
+#> 2    10001 2023  3       ADIYAMAN SEKTÖR          14189512
+#> 3    10001 2023  3 AFYONKARAHİSAR SEKTÖR          26182581
+#> 4    10001 2023  3           AĞRI SEKTÖR           4541209
+#> 5    10001 2023  3        AKSARAY SEKTÖR          22535449
+#> 6    10001 2023  3         AMASYA SEKTÖR           9456856
+#>   Tasarruf Mevduatı (TL) Tasarruf Mevduatı (DTH) Diğer Mevduat
+#> 1               68165445                33390382      40948954
+#> 2                8769470                 5420042       4133270
+#> 3               13630002                12552579       7218373
+#> 4                2860903                 1680306       1495488
+#> 5               10411079                12124370       4662855
+#> 6                5505734                 3951122       1956146
+#>   Diğer Mevduat (TL) Diğer Mevduat (DTH) Toplam Mevduat plaka  period table_no
+#> 1           29321746            11627208      142504781     1 2023-03        2
+#> 2            3422143              711127       18322782     2 2023-03        2
+#> 3            5476164             1742209       33400954     3 2023-03        2
+#> 4            1246086              249402        6036697     4 2023-03        2
+#> 5            3259852             1403003       27198304    68 2023-03        2
+#> 6            1588133              368013       11413002     5 2023-03        2
 ## To save the results:
 # temp_file <- tempfile() # filename should be without extension
 # save_data(my_dat, temp_file, format = "csv")
@@ -439,8 +439,8 @@ of selected provinces in total deposits ove 2020-2024 period.
 
 ``` r
 sel_cities =c("ADANA","MALATYA","MUĞLA","KAYSERİ")
-cols = c("Şehir", "period","Toplam Mevduat")
-lookup <- c(city="Şehir", deposit="Toplam Mevduat")
+cols = c("il_adi", "period","Toplam Mevduat")
+lookup <- c(city="il_adi", deposit="Toplam Mevduat")
 p2 = my_dat2[,cols] |>
   rename(all_of(lookup)) |>
   mutate(date=as.Date(paste0(period, "-01"))) |>
@@ -455,7 +455,7 @@ p2 = my_dat2[,cols] |>
     expand = c(0.01, 0)           # Reduce padding
   ) +
   labs(
-    title = "Share of Selected Cities in Deposits, 2020-2023 (TRY)",
+    title = "Share of Selected Provinces in Deposits, 2020-2023 (TRY)",
     x = "",
     y = ""
   ) +
@@ -468,7 +468,8 @@ theme(
 p2
 ```
 
-![](introduction_files/figure-html/unnamed-chunk-9-1.png)
+![Default descriptive
+text](introduction_files/figure-html/unnamed-chunk-9-1.png)
 
 ### Part 4: Saving Your Results
 
@@ -502,13 +503,6 @@ learn more:
     [`list_groups()`](https://obakis.github.io/rbrsa/reference/list_groups.md).
 3.  Check out the `pybrsa` package (<https://github.com/obakis/pybrsa>)
     for similar functionality in Python. (UNDER CONSTRUCTION)
-
-### Note on Current Limitations
-
-Currently, only a single `grup_kod` or province can be specified per
-request. The underlying BDDK API supports multiple `grup_kod`s or
-provinces, and this functionality will be added in a future version of
-`rbrsa`.
 
 ------------------------------------------------------------------------
 

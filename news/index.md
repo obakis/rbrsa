@@ -1,5 +1,13 @@
 # Changelog
 
+## rbrsa 0.2.0
+
+- Support for multiple `grup_kod` code and multiple provinces (`il`) in
+  fetch_finturk()
+- Support for multiple `grup_kod` code in fetch_bddk()
+- A vignette “Getting Started with Turkish Banking Data” that provides
+  an introduction to the package’s main features.
+
 ## rbrsa 0.1.0
 
 - Initial release with core functionality

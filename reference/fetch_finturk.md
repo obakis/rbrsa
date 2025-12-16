@@ -57,6 +57,11 @@ fetch_finturk(
 
 Combined data frame with "fetch_info" attribute.
 
+## See also
+
+[`fetch_bddk()`](https://obakis.github.io/rbrsa/reference/fetch_bddk.md)
+for monthly BRSA data .
+
 ## Examples
 
 ``` r
