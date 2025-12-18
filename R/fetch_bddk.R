@@ -63,7 +63,7 @@ fetch_bddk1 <- function(year, month, table_no, grup_kod = 10001,
   
   if (!isTRUE(parsed$success)) stop("API reported unsuccessful request")
   
-  df <- parse_bddk_json(parsed$Json)
+  df <- parse_json(parsed$Json)
 
   if (nrow(df) == 0) {
     warning(sprintf("No data for table %d, %d-%02d, grup_kod %s", 

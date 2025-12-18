@@ -4,7 +4,7 @@
 #' @return Data frame with parsed data.
 #' @importFrom stats setNames
 #' @noRd
-parse_bddk_json <- function(parsed_json) {
+parse_json <- function(parsed_json) {
   # Keep all columns. The FinTurk website "hide" some columns for UI display purposes
   cols_to_keep <- seq_along(parsed_json$colModels)
   col_models <- parsed_json$colModels[cols_to_keep]
@@ -95,7 +95,7 @@ save_data <- function(df, filename = NULL, format = "rds") {
 #' plaka_to_city(34)  # "ISTANBUL"
 #' plaka_to_city(0)   # "HEPSI"
 plaka_to_city <- function(plaka) {
-  cities <- get("finturk_cities", envir = asNamespace("rbrsa"))
+  cities <- get("cities", envir = asNamespace("rbrsa"))
   invalid <- setdiff(plaka, cities$plaka)
   invalid
   if (length(invalid) > 0) {
@@ -115,7 +115,7 @@ plaka_to_city <- function(plaka) {
 #' @examples
 #' list_cities()
 list_cities <- function() {
-  cities <- get("finturk_cities", envir = asNamespace("rbrsa"))
+  cities <- get("cities", envir = asNamespace("rbrsa"))
 
   cat("\nAvailable cities for Finturk quarterly data:\n")
   cat("(Use plate number in fetch_finturk functions)\n")

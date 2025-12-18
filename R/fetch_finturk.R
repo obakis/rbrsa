@@ -88,7 +88,7 @@ fetch_finturk1 <- function(year, month, table_no,
   }
   
   # Parse the JSON response
-  df <- parse_bddk_json(parsed$Json)
+  df <- parse_json(parsed$Json)
   df
   if (nrow(df) == 0) {
     warning(sprintf("No data for table %s, %d-%02d", table_no, year, month))
@@ -105,7 +105,7 @@ fetch_finturk1 <- function(year, month, table_no,
   # colnames(df)[char_cols[1]] <- "il_adi"
   
   # Map city name to plaka code
-  cities <- get("finturk_cities", envir = asNamespace("rbrsa"))
+  cities <- get("cities", envir = asNamespace("rbrsa"))
   city_to_plaka <- setNames(cities$plaka, cities$il)
   df$plaka <- city_to_plaka[df$il_adi]
 

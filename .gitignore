@@ -1,14 +1,14 @@
 .Rproj.user
 .DS_Store
 */.DS_Store
+.RData
 .Rhistory
-_create_rbrsa.sh
-_update_rbrsa.sh
-_call_update_rbrsa.sh
-_create_rbrsa_R.R
-_update_rbrsa_R.R_create_update_rbrsa_website.R
 _pkgdown.yml
 Makefile
 data-raw/
 docs
 inst/doc
+# Ignore my personal helper scripts
+_create_*
+_update_*
+_call_*
