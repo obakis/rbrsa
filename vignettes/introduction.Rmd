@@ -20,13 +20,6 @@ knitr::opts_chunk$set(
 
 The `rbrsa` package facilitates programmatic access to Turkish banking sector data from the Turkish Banking Regulation  and Supervision Agency (BRSA, known as BDDK in Turkish). The package provides  R users with a clean interface to fetch monthly and quarterly banking statistics,  financial reports, and sectoral indicators directly from BRSA's official APIs. This vignette demonstrates a complete workflow: from discovering available data to fetching it and performing a basic analysis.
 
-Some key features are
-- Direct API access to BRSA monthly bulletins (17 financial tables)
-- Quarterly Finturk data with city-level granularity (7 tables, 82 cities including 'HEPSI' for all cities)
-- Consistent parameter interface for both data sources
-- Built-in metadata for tables, banking groups, and cities
-- Multiple export formats: RDS, CSV, Excel via `save_data()`
-- Returns base R data frames ready for analysis
 
 ## Installation and Setup
 

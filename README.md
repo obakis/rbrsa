@@ -10,13 +10,17 @@ the [Turkish Banking Regulation and Supervision
 Agency](https://www.bddk.org.tr) (BRSA, known as BDDK in Turkish). The
 package provides R users with a clean interface to fetch monthly and
 quarterly banking statistics, financial reports, and sectoral indicators
-directly from BRSA’s official APIs.
+directly from BRSA’s official APIs. Specifically, The package retrieves
+tables from two distinct publication portals maintained by the BRSA:
+
+- The [Monthly Bulletin Portal](https://www.bddk.org.tr/bultenaylik/)
+- The [FinTurk Data System](https://www.bddk.org.tr/BultenFinTurk/)
 
 ## Key Features
 
 - Direct API access to BRSA monthly bulletins (17 financial tables)
 - Quarterly FinTurk data with city-level granularity (7 tables, 82
-  cities including 'HEPSI’ for all cities)
+  cities including ‘HEPSI’ for all cities)
 - Consistent parameter interface for both data sources
 - Built-in metadata for tables, banking groups, and provinces
 - Multiple export formats: RDS, CSV, Excel via `save_data()`
@@ -73,8 +77,9 @@ pak::pkg_install("obakis/rbrsa")
 
 ## Getting started
 
-*Full package documentation with function references is available at*:
-<https://obakis.github.io/rbrsa/>
+*A vignette demonstrating how to use main functions, download and save
+data from both BDDK and FinTurk interface can be found at*:
+<https://obakis.github.io/rbrsa/articles/introduction.html>
 
 The `rbrsa` package retrieves tables from two distinct publication
 portalsmaintained by the Turkish Banking Regulation and Supervision
