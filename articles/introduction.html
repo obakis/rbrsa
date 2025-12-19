@@ -100,7 +100,7 @@ workflow: from discovering available data to fetching it and performing
 a basic analysis.</p>
 <p>Some key features are - Direct API access to BRSA monthly bulletins
 (17 financial tables) - Quarterly Finturk data with city-level
-granularity (7 tables, 82 cities including ‘HEPSİ’ for all cities) -
+granularity (7 tables, 82 cities including ‘HEPSI’ for all cities) -
 Consistent parameter interface for both data sources - Built-in metadata
 for tables, banking groups, and cities - Multiple export formats: RDS,
 CSV, Excel via <code><a href="../reference/save_data.html">save_data()</a></code> - Returns base R data frames
@@ -492,7 +492,7 @@ provinces over 2023 and 2024.</p>
 examine the share of selected provinces in total deposits ove 2020-2024
 period.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sel_cities</span> <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ADANA"</span>,<span class="st">"MALATYA"</span>,<span class="st">"MUĞLA"</span>,<span class="st">"KAYSERİ"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">sel_cities</span> <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ADANA"</span>,<span class="st">"MALATYA"</span>,<span class="st">"MUGLA"</span>,<span class="st">"KAYSERI"</span><span class="op">)</span></span>
 <span><span class="va">cols</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"il_adi"</span>, <span class="st">"period"</span>,<span class="st">"Toplam Mevduat"</span><span class="op">)</span></span>
 <span><span class="va">lookup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>city<span class="op">=</span><span class="st">"il_adi"</span>, deposit<span class="op">=</span><span class="st">"Toplam Mevduat"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">=</span> <span class="va">my_dat2</span><span class="op">[</span>,<span class="va">cols</span><span class="op">]</span> <span class="op">|&gt;</span></span>
