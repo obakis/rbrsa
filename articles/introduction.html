@@ -526,10 +526,10 @@ various formats for use in other tools.</p>
 <span><span class="fu"><a href="../reference/save_data.html">save_data</a></span><span class="op">(</span><span class="va">my_dat</span>, <span class="st">"filename_you_prefer"</span>, format <span class="op">=</span> <span class="st">"rds"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/save_data.html">save_data</a></span><span class="op">(</span><span class="va">my_dat</span>, <span class="st">"filename_you_prefer"</span>, format <span class="op">=</span> <span class="st">"xlsx"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Using tempfile() for examples (as in README)</span></span>
+<span></span>
 <span><span class="va">temp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/save_data.html">save_data</a></span><span class="op">(</span><span class="va">my_dat</span>, <span class="va">temp_file</span>, format <span class="op">=</span> <span class="st">"csv"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Data saved to:"</span>, <span class="va">temp_file</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Data saved to:"</span>, <span class="va">temp_file</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
