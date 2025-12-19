@@ -106,22 +106,6 @@ for tables, banking groups, and cities - Multiple export formats: RDS,
 CSV, Excel via <code><a href="../reference/save_data.html">save_data()</a></code> - Returns base R data frames
 ready for analysis</p>
 <div class="section level3">
-<h3 id="design-philosophy">Design Philosophy<a class="anchor" aria-label="anchor" href="#design-philosophy"></a>
-</h3>
-<p>Unlike configuration-heavy approaches, such as <a href="https://github.com/ozancanozdemir/bddkR" class="external-link">bddkR</a> (which is a
-based on <a href="https://github.com/urazakgul/bddkdata" class="external-link">bddkdata</a>, a
-Python package), rbrsa uses a programmatic design that dynamically
-extracts column structures from API responses while maintaining a stable
-user interface. This approach reduces maintenance burden and adapts to
-BRSA API changes.</p>
-<p>Related Packages: - <a href="https://github.com/ozancanozdemir/bddkR" class="external-link">bddkR</a> (R): Uses
-manual configuration for translations and column mappings - <a href="https://github.com/barbasan/bddk" class="external-link">bddk</a> (Python): Provides
-similar functionality for Python users<br>
-- <a href="https://github.com/urazakgul/bddkdata" class="external-link">bddkdata</a> (Python):
-Provides similar functionality for Python/pandas users - <a href="https://github.com/obakis/pybrsa" class="external-link">pybrsa</a> (Python,
-forthcoming): Python companion to this package with consistent API</p>
-</div>
-<div class="section level3">
 <h3 id="installation-and-setup">Installation and Setup<a class="anchor" aria-label="anchor" href="#installation-and-setup"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -160,7 +144,6 @@ statistics.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List available tables in the Monthly Bulletin</span></span>
 <span><span class="va">bulletin_tables</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_tables.html">list_tables</a></span><span class="op">(</span><span class="st">"bddk"</span>, lang<span class="op">=</span><span class="st">"en"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Available tables for bddk data:</span></span>
 <span><span class="co">#&gt;  Table_No                            Title</span></span>
 <span><span class="co">#&gt;         1                    Balance Sheet</span></span>
@@ -191,7 +174,6 @@ statistics.</p>
 <span></span>
 <span><span class="co"># List available banking groups for the Monthly Bulletin</span></span>
 <span><span class="va">bulletin_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_groups.html">list_groups</a></span><span class="op">(</span><span class="st">"bddk"</span>, lang<span class="op">=</span><span class="st">"en"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Available banking groups for bddk data:</span></span>
 <span><span class="co">#&gt;  Group_Code                             Name</span></span>
 <span><span class="co">#&gt;       10001                     Sector Total</span></span>
@@ -221,7 +203,6 @@ breakdowns.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List available tables in Finturk</span></span>
 <span><span class="va">finturk_tables</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_tables.html">list_tables</a></span><span class="op">(</span><span class="st">"finturk"</span>, lang<span class="op">=</span><span class="st">"en"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Available tables for finturk data:</span></span>
 <span><span class="co">#&gt;  Table_No                                        Title</span></span>
 <span><span class="co">#&gt;         1                          Loans (Thousand TL)</span></span>
@@ -243,7 +224,6 @@ breakdowns.</p>
 <span></span>
 <span><span class="co"># List available banking groups for Finturk</span></span>
 <span><span class="va">finturk_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_groups.html">list_groups</a></span><span class="op">(</span><span class="st">"finturk"</span>, lang<span class="op">=</span><span class="st">"en"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Available banking groups for finturk data:</span></span>
 <span><span class="co">#&gt;  Group_Code                             Name</span></span>
 <span><span class="co">#&gt;       10001                     Sector Total</span></span>
@@ -265,10 +245,9 @@ breakdowns.</p>
 <span></span>
 <span><span class="co"># List of cities for Finturk</span></span>
 <span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/list_cities.html">list_cities</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Available cities for Finturk quarterly data:</span></span>
-<span><span class="co">#&gt; (Use plate number in fetch_finturk functions)</span></span>
-<span><span class="co">#&gt;   Plaka 0 = HEPSI (All Cities)</span></span>
+<span><span class="co">#&gt; Available cities for Finturk quarterly data</span></span>
+<span><span class="co">#&gt; Use license plate number (plaka) in fetch_finturk functions:</span></span>
+<span><span class="co">#&gt; Valid values: 0 (HEPSI/ALL), 1-81, 999 (YURT DISI/ABROAD)</span></span>
 <span><span class="co">#&gt;  plaka             il</span></span>
 <span><span class="co">#&gt;      0          HEPSİ</span></span>
 <span><span class="co">#&gt;      1          ADANA</span></span>
