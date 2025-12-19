@@ -1,32 +1,35 @@
 ## .DS_Store and similar files are automatically excluded by R CMD build
-## ========================================
+
 ## GitHub files
 ## ========================================
-^\.github/
+^\.github$
 
-## .Rdata and .Rhistory are automatically excluded by R CMD build
-## ========================================
 ## R/RStudio files
 ## ========================================
+## .Rdata and .Rhistory are automatically excluded by R CMD build
 ^.*\.Rproj$
 ^\.Rproj\.user$
 
 
-## ========================================
 ## Package development
 ## ========================================
 ^_pkgdown\.yml$
-^data-raw/
+^data-raw$
+^LICENSE\.md$
+^cran-comments\.md$
 
-## ========================================
 ## Build outputs
 ## ========================================
-## We could exclude NEWS.md, README.md, LICENSE.md etc.
-## But good to have those files in tar.gz... 
-## We could doc as well, but this provides offline vignette
-^README\.Rmd$ # exclude Rmd file keep md file
-^docs/ # Website (built by pkgdown)
-^Meta/  # Offline vignette data (built by devtools) 
+## We keep doc to provide offline access to vignette
+^README\.Rmd$
+^doc$
+^docs$
+^Meta$
+^\.Rcheck$
+^.*\.Rcheck$
+^.*\.tar\.gz$
+^rbrsa_.*\.tar\.gz$
+^rbrsa\.Rcheck$
 
 ## ========================================
 ## Personal helper scripts
@@ -35,6 +38,5 @@
 ^_create_.*
 ^_update_.*
 ^_call_.*
-
-^doc$
-^Meta$
+^_check_.*
+^_fix_.*

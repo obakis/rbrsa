@@ -90,7 +90,7 @@ plaka_to_city <- function(plaka) {
   invalid
   if (length(invalid) > 0) {
     stop(sprintf(
-      "Invalid plaka(s): %s. Valid plaka: 0 (HEPSI), 1-81, 999 (YURT DISI)",
+      "Invalid plaka(s): %s. Valid plaka: 0, 1-81, 999",
       paste(invalid, collapse = ", ")
     ))
   }

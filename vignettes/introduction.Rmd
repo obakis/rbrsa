@@ -22,7 +22,7 @@ The `rbrsa` package facilitates programmatic access to Turkish banking sector da
 
 Some key features are
 - Direct API access to BRSA monthly bulletins (17 financial tables)
-- Quarterly Finturk data with city-level granularity (7 tables, 82 cities including 'HEPSİ' for all cities)
+- Quarterly Finturk data with city-level granularity (7 tables, 82 cities including 'HEPSI' for all cities)
 - Consistent parameter interface for both data sources
 - Built-in metadata for tables, banking groups, and cities
 - Multiple export formats: RDS, CSV, Excel via `save_data()`
@@ -178,7 +178,7 @@ head(my_dat2)
 Finturk data includes a province column (`il`). Let's examine the share of selected provinces in total deposits ove 2020-2024 period.
 
 ```{r}
-sel_cities =c("ADANA","MALATYA","MUĞLA","KAYSERİ")
+sel_cities =c("ADANA","MALATYA","MUGLA","KAYSERI")
 cols = c("il_adi", "period","Toplam Mevduat")
 lookup <- c(city="il_adi", deposit="Toplam Mevduat")
 p2 = my_dat2[,cols] |>

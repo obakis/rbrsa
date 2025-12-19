@@ -1,21 +1,20 @@
-## R CMD check results, rbrsa 0.2.0 
+Dear CRAN Team,
 
-checking top-level files ... NOTE
+Please find attached version 0.2.0 of the 'rbrsa' package for submission to CRAN. This is a re-submission fixing  problems detected in earlier submission. 
 
-Non-standard files/directories found at top level:
-    ‘LICENSE.md’ ‘README.Rmd’ ‘cran-comments.md’ ‘docs’
+The package provides automated access to banking sector data from the Turkish Banking Regulation and Supervision Agency (BRSA/BDDK).
 
-0 errors | 0 warnings | 1 note
+R CMD check results: 0 errors, 0 warnings, 2 notes
+- CRAN incoming feasibility (new submission)
+- Future file timestamps (system issue)
 
-* This is a re-submission. Version 0.1.0 was submitted previously and feedback was received.
-* The feedback has been addressed as follows:
-  1. Fixed URL formatting in DESCRIPTION.
-  2. Replaced `\dontrun{}` with `\donttest{}` in `save_data.Rd`.
-  3. Added explanations for the acronyms BRSA and BDDK below.
-* The version number has been increased to 0.2.0 for clarity, following CRAN's preference.
-* The remaining NOTE is for these acronym explanations.
+All initial issues with the previous submission have been resolved.
+- Removed non-standard files/directories found at top level:
+    'LICENSE.md' 'README.Rmd' 'cran-comments.md' 'docs'
+- Updates DESCRIPTION: fixed URL (added trailing slash to pkgdown site)
 
-## Acronyms used in the DESCRIPTION file
-* BRSA: Banking Regulation and Supervision Agency.
-* BDDK: The Turkish acronym for BRSA (Banka Denetleme ve Düzenleme Kurumu).
 
+Thank you for your consideration.
+
+Best regards,
+Ozan Bakis

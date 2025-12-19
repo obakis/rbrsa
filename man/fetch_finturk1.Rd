@@ -2,7 +2,7 @@
 % Please edit documentation in R/fetch_finturk.R
 \name{fetch_finturk1}
 \alias{fetch_finturk1}
-\title{Fetch Quarterly Data from BDDK Finturk with Multiple Provinces}
+\title{Fetch Quarterly Data from BDDK FinTurk with Multiple Provinces}
 \usage{
 fetch_finturk1(year, month, table_no, grup_kod = 10001, il = 0)
 }
@@ -15,22 +15,22 @@ fetch_finturk1(year, month, table_no, grup_kod = 10001, il = 0)
 
 \item{grup_kod}{Group code (10001-1007). Default 10001.}
 
-\item{il}{plaka (license plate) number (0-81); 999 = Yurt Dışı. Default 0.
-0=HEPSİ (All Cities), 1=Adana, 6=Ankara, 34=İstanbul, 35=İzmir, etc.
+\item{il}{plaka (license plate) number (0-81); 999 = Yurt Disi. Default 0.
+0=HEPSI (All Cities), 1=Adana, 6=Ankara, 34=Istanbul, 35=Izmir, etc.
 See \code{\link{list_cities}} for full list.}
 }
 \value{
 Data frame with a \code{fetch_info} attribute that contains query details.
 }
 \description{
-Retrieves quarterly banking data from the BDDK Finturk API for specified
+Retrieves quarterly banking data from the BDDK FinTurk API for specified
 group codes and provinces. Supports multiple group codes and province
 codes in a single request.
 }
 \details{
-The Finturk API only provides data for quarter-ending months (March, June,
+The FinTurk API only provides data for quarter-ending months (March, June,
 September, December). Province codes follow Turkey's standard license
-plate numbering (1 = Adana, 6 = Ankara, 34 = İstanbul, etc.).
+plate numbering (1 = Adana, 6 = Ankara, 34 = Istanbul, etc.).
 }
 \examples{
 # Single group, all provinces

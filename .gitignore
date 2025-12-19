@@ -2,7 +2,7 @@
 ## System files
 ## ========================================
 .DS_Store
-*/.DS_Store  
+*/.DS_Store
 
 ## ========================================
 ## R/RStudio files
@@ -21,9 +21,14 @@ data-raw/
 ## ========================================
 ## Build outputs
 ## ========================================
-doc/  # Offline vignette (built by devtools) 
-Meta/ # Offline vignette data (built by devtools) 
-docs/  # Website (built by pkgdown)
+doc/
+Meta/
+docs/
+rbrsa_*.tar.gz
+.Rcheck/
+*.Rcheck/
+rbrsa.Rcheck/
+cran-comments.md
 
 ## ========================================
 ## Personal helper scripts
@@ -32,3 +37,8 @@ docs/  # Website (built by pkgdown)
 _create_*
 _update_*
 _call_*
+_check_*
+_fix_*
+.Rcheck/
+/doc/
+/Meta/

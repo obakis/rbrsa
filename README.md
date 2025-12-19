@@ -15,8 +15,8 @@ directly from BRSA’s official APIs.
 ## Key Features
 
 - Direct API access to BRSA monthly bulletins (17 financial tables)
-- Quarterly Finturk data with city-level granularity (7 tables, 82
-  cities including ‘HEPSİ’ for all cities)
+- Quarterly FinTurk data with city-level granularity (7 tables, 82
+  cities including 'HEPSI’ for all cities)
 - Consistent parameter interface for both data sources
 - Built-in metadata for tables, banking groups, and provinces
 - Multiple export formats: RDS, CSV, Excel via `save_data()`
@@ -26,7 +26,7 @@ directly from BRSA’s official APIs.
 
 **Lightweight and Authentic:** Other packages providing access to BDDK
 data (like `bddkR`) also fetch data programmatically, but they add a
-heavy translation layer —maintaining manual configuration files to map
+heavy translation layer -maintaining manual configuration files to map
 Turkish column names and categorical values to English. This provides
 user convenience at a high maintenance cost.
 
@@ -35,7 +35,7 @@ uses the data it returns with minimal alteration:
 
 - For the **Monthly Bulletin**, it uses the **official English column
   names and labels** provided by the API when `lang = "en"` is set.
-- For the **Finturk dataset**, where the API provides data only in
+- For the **FinTurk dataset**, where the API provides data only in
   Turkish, it returns the **authentic Turkish names**.
 
 **This is a deliberate choice.** By avoiding a separate translation
@@ -81,10 +81,10 @@ portalsmaintained by the Turkish Banking Regulation and Supervision
 Agency (BDDK). Both portals are official sources, but they organize the
 data differently:
 
-- The [Monthly Bulletin Portal](https://www.bddk.org.tr/bultenaylik)
+- The [Monthly Bulletin Portal](https://www.bddk.org.tr/bultenaylik/)
   provides high-level, summary reports designed for general consumption
   and quick overviews of monthly trends without any geographic coverage.
-- The [Finturk Data System](https://www.bddk.org.tr/BultenFinturk/)
+- The [FinTurk Data System](https://www.bddk.org.tr/BultenFinTurk/)
   provides granular, detailed data, including statistics broken down by
   province, whereas the standard Monthly Bulletin offers national-level
   aggregates.
@@ -101,7 +101,7 @@ list_groups("finturk")
 ## Monthly data (Table 15: Ratios)
 data <- fetch_bddk(2024, 1, 2024, 3, table_no = 15, grup_kod = 10001)
 
-## Quarterly Finturk data
+## Quarterly FinTurk data
 q_data <- fetch_finturk(2024, 3, 2024, 9, table_no = 1, grup_kod = 10007)
 
 ## Save results

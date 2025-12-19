@@ -1,7 +1,7 @@
 
-#' Fetch Quarterly Data from BDDK Finturk with Multiple Provinces
+#' Fetch Quarterly Data from BDDK FinTurk with Multiple Provinces
 #'
-#' Retrieves quarterly banking data from the BDDK Finturk API for specified
+#' Retrieves quarterly banking data from the BDDK FinTurk API for specified
 #' group codes and provinces. Supports multiple group codes and province
 #' codes in a single request.
 #'
@@ -9,14 +9,14 @@
 #' @param month Month as integer (3,6,9,12 for quarterly data).
 #' @param table_no Table number to fetch (1-7). No default.
 #' @param grup_kod Group code (10001-1007). Default 10001.
-#' @param il plaka (license plate) number (0-81); 999 = Yurt Dışı. Default 0.
-#'   0=HEPSİ (All Cities), 1=Adana, 6=Ankara, 34=İstanbul, 35=İzmir, etc.
+#' @param il plaka (license plate) number (0-81); 999 = Yurt Disi. Default 0.
+#'   0=HEPSI (All Cities), 1=Adana, 6=Ankara, 34=Istanbul, 35=Izmir, etc.
 #'   See \code{\link{list_cities}} for full list.
 #' @return Data frame with a `fetch_info` attribute that contains query details.
 #' @details
-#' The Finturk API only provides data for quarter-ending months (March, June,
+#' The FinTurk API only provides data for quarter-ending months (March, June,
 #'   September, December). Province codes follow Turkey's standard license
-#'   plate numbering (1 = Adana, 6 = Ankara, 34 = İstanbul, etc.).
+#'   plate numbering (1 = Adana, 6 = Ankara, 34 = Istanbul, etc.).
 #'
 #' @examples
 #' # Single group, all provinces
@@ -35,7 +35,7 @@ fetch_finturk1 <- function(year, month, table_no,
                           grup_kod = 10001, il = 0) {
 
   if (!month %in% c(3, 6, 9, 12)) {
-    stop("Finturk requires quarterly months (3, 6, 9, 12)")
+    stop("FinTurk requires quarterly months (3, 6, 9, 12)")
   }
   
   grup_kod <- as.character(grup_kod)
@@ -43,7 +43,7 @@ fetch_finturk1 <- function(year, month, table_no,
   city_names <- plaka_to_city(il)
   
   # Build the base request
-  base_url <- "https://www.bddk.org.tr/BultenFinturk/tr/Home/VeriGetir"
+  base_url <- "https://www.bddk.org.tr/BultenFinTurk/tr/Home/VeriGetir"
   req <- httr2::request(base_url) |>
     httr2::req_body_form(
       tabloNo = as.character(table_no),
@@ -67,7 +67,7 @@ fetch_finturk1 <- function(year, month, table_no,
     httr2::req_headers(
       `Content-Type` = "application/x-www-form-urlencoded; charset=UTF-8",
       `X-Requested-With` = "XMLHttpRequest",
-      `Referer` = "https://www.bddk.org.tr/BultenFinturk"
+      `Referer` = "https://www.bddk.org.tr/BultenFinTurk"
     ) |>
     httr2::req_timeout(30)
   
@@ -96,7 +96,7 @@ fetch_finturk1 <- function(year, month, table_no,
   }
 
   colnames(df)[colnames(df) == "Eftodu"] <- "grup_kod"
-#  colnames(df)[colnames(df) == "\u015eehir"] <- "il_adi"  # Unicode for Ş
+#  colnames(df)[colnames(df) == "\u015eehir"] <- "il_adi"  # Unicode for S
   s_idx <- grep("^\u015eehir$", colnames(df), ignore.case = TRUE, perl = TRUE)
   colnames(df)[s_idx] <- "il_adi"
 
@@ -126,9 +126,9 @@ fetch_finturk1 <- function(year, month, table_no,
   return(df)
 }
 
-#' Fetch multiple period Finturk data
+#' Fetch multiple period FinTurk data
 #'
-#' Fetches Finturk data for a range of quarters by calling fetch_finturk1 iteratively.
+#' Fetches FinTurk data for a range of quarters by calling fetch_finturk1 iteratively.
 #'
 #' @param start_year,end_year Starting/ending year (YYYY).
 #' @param start_month,end_month Starting/ending month (3,6,9,12).
@@ -158,7 +158,7 @@ fetch_finturk <- function(start_year, start_month, end_year, end_month,
     stop("Start and end months must be one of 3,6,9,12 (quarterly)")
   }
   if (!is.numeric(il)) {
-    stop("Finturk requires plaka (license plate) number: 0 (ALL), 1-81")
+    stop("FinTurk requires plaka (license plate) number: 0, 1-81, 999")
   }
   
   # Convert plate to city code for API
