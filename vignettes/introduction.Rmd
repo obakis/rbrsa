@@ -28,17 +28,6 @@ Some key features are
 - Multiple export formats: RDS, CSV, Excel via `save_data()`
 - Returns base R data frames ready for analysis
 
-## Design Philosophy
-
-Unlike configuration-heavy approaches, such as [bddkR](https://github.com/ozancanozdemir/bddkR) (which is a based on  [bddkdata](https://github.com/urazakgul/bddkdata), a Python package), rbrsa uses a programmatic design that dynamically extracts column structures from API responses while maintaining a stable user interface. This approach reduces maintenance burden and adapts to BRSA API changes.
-
-Related Packages:
-- [bddkR](https://github.com/ozancanozdemir/bddkR) (R): Uses manual configuration for translations and column mappings
-- [bddk](https://github.com/barbasan/bddk) (Python): Provides similar functionality for Python users  
-- [bddkdata](https://github.com/urazakgul/bddkdata) (Python): Provides similar functionality for Python/pandas users
-- [pybrsa](https://github.com/obakis/pybrsa) (Python, forthcoming): Python companion to this package with consistent API
-
-
 ## Installation and Setup
 
 ```{r, eval=FALSE}

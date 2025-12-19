@@ -1,14 +1,36 @@
-.Rproj.user
+## ========================================
+## System files
+## ========================================
 .DS_Store
-*/.DS_Store
+*/.DS_Store  
+
+## ========================================
+## R/RStudio files
+## ========================================
+*.Rproj
+.Rproj.user
 .RData
 .Rhistory
+
+## ========================================
+## Package development
+## ========================================
 _pkgdown.yml
-Makefile
 data-raw/
-docs
-inst/doc
-# Ignore my personal helper scripts
+
+## ========================================
+## Build outputs
+## ========================================
+doc/  # Offline vignette (built by devtools) 
+Meta/ # Offline vignette data (built by devtools) 
+docs/  # Website (built by pkgdown)
+
+## ========================================
+## Personal helper scripts
+## ========================================
+[Mm]akefile
 _create_*
 _update_*
 _call_*
+/doc/
+/Meta/

@@ -31,13 +31,13 @@ parse_json <- function(parsed_json) {
 #' Save Fetched Data to Multiple Formats
 #'
 #' @param df Data frame to save (with fetch_info attribute for auto-naming).
-#' @param filename Base name for output file (without extension).
+#' @param filename  **Required**. A non-empty string (without extension) must be provided.
 #' @param format Output format: "rds", "csv", or "xlsx". Default "rds".
 #' @return Full file path (invisibly).
 #' @importFrom utils write.csv
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'   my_data <- fetch_bddk1(2024, 1, 15)
 #'   temp_file <- tempfile() # filename should be without extension
 #'   save_data(my_data, temp_file, format = "csv")
@@ -47,20 +47,10 @@ save_data <- function(df, filename = NULL, format = "rds") {
   if (!format %in% valid_formats) {
     stop("Invalid 'format'. Must be one of: ", paste(valid_formats, collapse = ", "))
   }
-
-  if (is.null(filename)) {
-    params <- attr(df, "fetch_info")
-    if (is.null(params)) {
-      stop("Data frame must have a 'fetch_info' attribute for automatic naming.")
-    }
-    filename <- sprintf("bddk_table%s_%s_%s.%s",
-                        params$table_no,
-                        params$start_date,
-                        params$end_date,
-                        format)
-  } else {
-    filename <- paste0(filename, ".", format)
+  if (is.null(filename) || missing(filename) || filename == "") {
+    stop("Argument 'filename' is required and cannot be empty")
   }
+  filename <- paste0(filename, ".", format)
 
   switch(format,
          csv = {
@@ -117,10 +107,10 @@ plaka_to_city <- function(plaka) {
 list_cities <- function() {
   cities <- get("cities", envir = asNamespace("rbrsa"))
 
-  cat("\nAvailable cities for Finturk quarterly data:\n")
-  cat("(Use plate number in fetch_finturk functions)\n")
-  cat("  Plaka 0 = HEPSI (All Cities)\n")
-
+  message("Available cities for Finturk quarterly data")
+  message("Use license plate number (plaka) in fetch_finturk functions:")
+  message("Valid values: 0 (HEPSI/ALL), 1-81, 999 (YURT DISI/ABROAD)")
+  
   df = data.frame(
     plaka = cities$plaka,
     il = cities$il
@@ -158,7 +148,7 @@ list_groups <- function(source = c("bddk", "finturk"), lang = c("en", "tr")) {
     stringsAsFactors = FALSE
   )
 
-  cat(sprintf("\nAvailable banking groups for %s data:\n", source))
+  message(sprintf("Available banking groups for %s data:", source))
   print(df, row.names = FALSE)
 
   invisible(df)
@@ -192,7 +182,7 @@ list_tables <- function(source = c("bddk", "finturk"), lang = c("en", "tr")) {
     Title = tables[[title_col]]
   )
 
-  cat(sprintf("\nAvailable tables for %s data:\n", source))
+  message(sprintf("Available tables for %s data:", source))
   print(df, row.names = FALSE)
 
   invisible(df)

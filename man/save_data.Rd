@@ -9,7 +9,7 @@ save_data(df, filename = NULL, format = "rds")
 \arguments{
 \item{df}{Data frame to save (with fetch_info attribute for auto-naming).}
 
-\item{filename}{Base name for output file (without extension).}
+\item{filename}{\strong{Required}. A non-empty string (without extension) must be provided.}
 
 \item{format}{Output format: "rds", "csv", or "xlsx". Default "rds".}
 }
@@ -20,7 +20,7 @@ Full file path (invisibly).
 Save Fetched Data to Multiple Formats
 }
 \examples{
-\dontrun{
+\donttest{
   my_data <- fetch_bddk1(2024, 1, 15)
   temp_file <- tempfile() # filename should be without extension
   save_data(my_data, temp_file, format = "csv")

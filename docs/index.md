@@ -1,6 +1,3 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # rbrsa: An R Package for Turkish Banking Sector Data
 
 [![Documentation](https://img.shields.io/badge/docs-pkgdown-blue)](https://obakis.github.io/rbrsa/)
@@ -19,7 +16,8 @@ directly from BRSA’s official APIs.
   cities including ‘HEPSİ’ for all cities)
 - Consistent parameter interface for both data sources
 - Built-in metadata for tables, banking groups, and provinces
-- Multiple export formats: RDS, CSV, Excel via `save_data()`
+- Multiple export formats: RDS, CSV, Excel via
+  [`save_data()`](https://obakis.github.io/rbrsa/reference/save_data.md)
 - Returns base R data frames ready for analysis
 
 ## Design Philosophy

@@ -1,12 +1,17 @@
 Package: rbrsa
-Title: Fetch Turkish Banking Sector Data from BRSA (BDDK)
+Title: Fetch Turkish Banking Sector Data from the Turkish Banking 
+    Regulation and Supervision Agency
 Version: 0.2.0
 Authors@R: 
     person(given = "Ozan",    family = "Bakis",
     email = "ozanbakis@gmail.com", role = c("aut", "cre"))
 Description: 
-    An R package for automated access to Turkish banking sector data from the Turkish Banking Regulation 
-    and Supervision Agency (BRSA, known as BDDK in Turkish). 
+    The goal of the 'rbrsa' package is to provide automated access to banking 
+    sector data from the Turkish Banking Regulation and Supervision 
+    Agency (BRSA, known as BDDK in Turkish). The package retrieves tables from 
+    two distinct publication portals maintained by the BRSA: The Monthly 
+    Bulletin Portal <https://www.bddk.org.tr/bultenaylik> and The Finturk Data 
+    System <https://www.bddk.org.tr/BultenFinturk>.
 License: MIT + file LICENSE
 URL: https://github.com/obakis/rbrsa, https://obakis.github.io/rbrsa
 BugReports: https://github.com/obakis/rbrsa/issues

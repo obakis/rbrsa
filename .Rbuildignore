@@ -1,21 +1,40 @@
-^rbrsa\.Rproj$
+## .DS_Store and similar files are automatically excluded by R CMD build
+## ========================================
+## GitHub files
+## ========================================
+^\.github/
+
+## .Rdata and .Rhistory are automatically excluded by R CMD build
+## ========================================
+## R/RStudio files
+## ========================================
+^.*\.Rproj$
 ^\.Rproj\.user$
-^data-raw$
-^README\.md$
-^LICENSE\.md$
+
+
+## ========================================
+## Package development
+## ========================================
 ^_pkgdown\.yml$
-^docs$
-^pkgdown$
-^\.github$
-_create_rbrsa.sh
-_update_rbrsa.sh
-_call_update_rbrsa.sh
-_create_update_rbrsa_R.R
-_create_update_rbrsa_website.R
-^_create_rbrsa\.sh$
-^_update_rbrsa\.sh$
-^_call_update_rbrsa\.sh$
-^_create_rbrsa_R\.R$
-^_update_rbrsa_R\.R$
-^_create_update_rbrsa_website\.R$
-^Makefile$
+^data-raw/
+
+## ========================================
+## Build outputs
+## ========================================
+## We could exclude NEWS.md, README.md, LICENSE.md etc.
+## But good to have those files in tar.gz... 
+## We could doc as well, but this provides offline vignette
+^README\.Rmd$ # exclude Rmd file keep md file
+^docs/ # Website (built by pkgdown)
+^Meta/  # Offline vignette data (built by devtools) 
+
+## ========================================
+## Personal helper scripts
+## ========================================
+^(M|m)akefile$
+^_create_.*
+^_update_.*
+^_call_.*
+
+^doc$
+^Meta$
