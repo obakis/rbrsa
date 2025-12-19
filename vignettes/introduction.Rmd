@@ -211,10 +211,10 @@ save_data(my_dat, "filename_you_prefer", format = "csv")
 save_data(my_dat, "filename_you_prefer", format = "rds")
 save_data(my_dat, "filename_you_prefer", format = "xlsx")
 
-# Using tempfile() for examples (as in README)
+
 temp_file <- tempfile()
 save_data(my_dat, temp_file, format = "csv")
-cat("Data saved to:", temp_file, "\n")
+message("Data saved to:", temp_file)
 ```
 
 
