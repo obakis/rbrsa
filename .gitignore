@@ -32,5 +32,3 @@ docs/  # Website (built by pkgdown)
 _create_*
 _update_*
 _call_*
-/doc/
-/Meta/
